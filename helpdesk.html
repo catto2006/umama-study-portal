@@ -94,6 +94,7 @@
       display: none;
       flex-direction: column;
       height: 500px;
+      position: relative;
     }
 
     #emergency-btn {
@@ -131,6 +132,21 @@
       overflow-y: auto;
       box-shadow: inset 0 0 10px #9ccd6d88;
       scroll-behavior: smooth;
+      position: relative;
+    }
+
+    /* Welcome message style separate from chat */
+    #welcome-message {
+      background: #ffe4b5;
+      color: #6b4c00;
+      margin: 10px auto 15px;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-style: italic;
+      font-weight: 600;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: none;
     }
 
     .message {
@@ -155,8 +171,8 @@
       text-align: right;
     }
     .sender-KuchuPrincess {
-      background: linear-gradient(135deg, #a5d6a7, #c8e6c9);
-      color: #1b5e20;
+      background: linear-gradient(135deg, #ffd6a5, #ffb347);
+      color: #5a3e1b;
       margin-right: auto;
       border-bottom-left-radius: 4px;
       text-align: left;
@@ -188,7 +204,9 @@
     #input-area {
       margin-top: 15px;
       display: flex;
-      gap: 15px;
+      gap: 10px;
+      align-items: center;
+      position: relative;
     }
 
     #message-input {
@@ -208,7 +226,7 @@
       box-shadow: 0 0 12px #0f890faa;
     }
 
-    #input-area button {
+    #input-area button[type="submit"] {
       background: #169116;
       color: white;
       border: none;
@@ -220,84 +238,143 @@
       box-shadow: 0 6px 18px #169116cc;
       transition: background 0.3s ease;
     }
-    #input-area button:hover {
+    #input-area button[type="submit"]:hover {
       background: #0f890f;
       box-shadow: 0 8px 28px #0f890fcc;
     }
 
-    /* Scrollbar style */
-    #messages::-webkit-scrollbar {
-      width: 10px;
+    /* Emoji button */
+    #emoji-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.7rem;
+      cursor: pointer;
+      user-select: none;
+      padding: 0 6px;
+      line-height: 1;
+      color: #555;
+      transition: color 0.3s ease;
     }
-    #messages::-webkit-scrollbar-thumb {
-      background: #9ccd6dcc;
-      border-radius: 25px;
+    #emoji-btn:hover {
+      color: #0f890f;
+    }
+
+    /* Emoji picker styles */
+    #emoji-picker {
+      position: absolute;
+      bottom: 60px;
+      right: 70px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 10px;
+      display: none;
+      max-width: 300px;
+      max-height: 150px;
+      overflow-y: auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      z-index: 1000;
+      user-select: none;
+      font-size: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    #emoji-picker span {
+      cursor: pointer;
+      transition: transform 0.2s ease, color 0.2s ease;
+      padding: 3px 5px;
+      border-radius: 6px;
+    }
+    #emoji-picker span:hover {
+      transform: scale(1.3);
+      color: #169116;
+      background-color: #e2f0d9;
     }
 
     /* Lectures section */
     #lectures-section {
       display: none;
-      max-width: 700px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 6px 18px #b2dfdbcc;
-      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #3e6827;
+      font-weight: 700;
+      font-size: 1.4rem;
+      border-radius: 25px;
+      background: #dcedc8;
+      box-shadow: 0 4px 20px #a5c975aa inset;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      main {
+        margin: 1rem;
+        padding: 1rem;
+        height: 100vh;
+        max-width: 100%;
+      }
+      #messages {
+        height: 300px;
+      }
+      #input-area button[type="submit"], #login-btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+      #access-code {
+        width: 100%;
+        max-width: none;
+      }
     }
   </style>
 </head>
 <body>
-  <header>Karachi Board Medical Coaching Center - Help Desk Chat</header>
+  <header>
+    Karachi Board Medical Coaching Center - Help Desk
+  </header>
 
   <main>
     <!-- Login Section -->
     <section id="login-section">
-      <p>Please enter your access code - only available for admins.</p>
-      <input
-        type="password"
-        id="access-code"
-        placeholder="Enter code here"
-        autocomplete="off"
-      />
-      <button id="login-btn">Enter</button>
-      <p id="login-error">Incorrect code, try again.</p>
+      <p>Enter your access code:</p>
+      <input type="password" id="access-code" placeholder="Access code" autocomplete="off" />
+      <button id="login-btn">Login</button>
+      <div id="login-error">Invalid access code, please try again.</div>
     </section>
 
     <!-- Chat Section -->
     <section id="chat-section">
-      <button id="emergency-btn" title="Emergency Surge: Go to Lectures">Emergency Surge</button>
+      <button id="emergency-btn" title="Exit chat and view lectures">Emergency Surge</button>
       <div id="online-users">Online Users: 0</div>
       <div id="messages"></div>
-
-      <form id="chat-form">
+      <form id="chat-form" autocomplete="off" aria-label="Send a chat message" style="position: relative;">
         <div id="input-area">
           <input
             type="text"
             id="message-input"
             placeholder="Type your message here..."
-            autocomplete="off"
             required
+            aria-label="Message input"
           />
-          <button type="submit">Send</button>
+          <button type="button" id="emoji-btn" aria-label="Toggle emoji picker" title="Add emoji">😊</button>
+          <button type="submit" aria-label="Send message">Send</button>
         </div>
+        <div id="emoji-picker" aria-label="Emoji picker" role="list"></div>
       </form>
+    </section>
+
+    <!-- Lectures Section -->
+    <section id="lectures-section" aria-live="polite" aria-atomic="true">
+      <p>Welcome to the Lecture Material page! Please login to join the help desk chat.</p>
     </section>
   </main>
 
-  <!-- Lectures Section -->
-  <section id="lectures-section">
-    <h2>Lectures Page</h2>
-    <p>Welcome to the lectures section. Here you can add links, videos, notes, and study materials.</p>
-  </section>
-
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
   <script>
-    // Your Firebase configuration (from your data)
-const firebaseConfig = {
+    // Your Firebase configuration (Replace with your config)
+    const firebaseConfig = {
   apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
   authDomain: "umama-study-portal.firebaseapp.com",
   projectId: "umama-study-portal",
@@ -310,13 +387,7 @@ const firebaseConfig = {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Access codes
-    const accessCodes = {
-      "ayan123": "Babygurl",
-      "umama123": "KuchuPrincess"
-    };
-
-    // DOM Elements
+    // DOM elements
     const loginSection = document.getElementById("login-section");
     const chatSection = document.getElementById("chat-section");
     const lecturesSection = document.getElementById("lectures-section");
@@ -326,19 +397,76 @@ const firebaseConfig = {
     const messagesDiv = document.getElementById("messages");
     const onlineUsersDiv = document.getElementById("online-users");
     const chatForm = document.getElementById("chat-form");
-    const messageInput = document.getElementById("message-input");
     const emergencyBtn = document.getElementById("emergency-btn");
 
-    let currentUser = null;
-    let onlineUsersCount = 0;
+    const emojiBtn = document.getElementById("emoji-btn");
+    const emojiPicker = document.getElementById("emoji-picker");
+    const messageInput = document.getElementById("message-input");
 
-    // Online users count update
-    function updateOnlineUsers(count) {
-      onlineUsersDiv.textContent = `Online Users: ${count}`;
+    // Access codes mapping
+    const accessCodes = {
+      "ayan123": "Babygurl",
+      "umama123": "KuchuPrincess"
+    };
+
+    let currentUser = null;
+    let userStatusRef = null;
+
+    // Emoji set
+    const emojis = ["😀","😂","😊","😍","😎","👍","🙏","🎉","🔥","💖","🌟","😢","😡","😴","🤔","🙌"];
+
+    // Populate emoji picker
+    emojis.forEach(e => {
+      const span = document.createElement("span");
+      span.textContent = e;
+      span.setAttribute('role', 'option');
+      span.tabIndex = 0;
+      span.addEventListener("click", () => {
+        messageInput.value += e;
+        messageInput.focus();
+        emojiPicker.style.display = "none";
+      });
+      span.addEventListener("keydown", (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          span.click();
+        }
+      });
+      emojiPicker.appendChild(span);
+    });
+
+    // Toggle emoji picker visibility
+    emojiBtn.addEventListener("click", () => {
+      emojiPicker.style.display = emojiPicker.style.display === "flex" ? "none" : "flex";
+    });
+
+    // Close emoji picker when clicking outside
+    document.addEventListener("click", e => {
+      if (!emojiPicker.contains(e.target) && e.target !== emojiBtn) {
+        emojiPicker.style.display = "none";
+      }
+    });
+
+    // Clear chat messages
+    function clearMessages() {
+      messagesDiv.innerHTML = "";
     }
 
-    // Display message in chat
+    // Display welcome message (separate)
+    function displayWelcomeMessage(user) {
+      clearMessages();
+      const welcomeEl = document.createElement("div");
+      welcomeEl.id = "welcome-message";
+      welcomeEl.textContent = `Welcome ${user}! You have entered the help desk.`;
+      messagesDiv.appendChild(welcomeEl);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // Display a chat message
     function displayMessage(sender, text) {
+      // Prevent duplicate welcome message in chat
+      if (text.startsWith("Welcome ") && sender === "System") return;
+
       const messageEl = document.createElement("div");
       messageEl.classList.add("message");
 
@@ -350,39 +478,67 @@ const firebaseConfig = {
         messageEl.classList.add("sender-System");
       }
 
-      const timeStr = new Date().toLocaleString();
+      const timeStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
       messageEl.innerHTML = `<strong>${sender}:</strong> ${text} <span class="timestamp">${timeStr}</span>`;
       messagesDiv.appendChild(messageEl);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // Listen for new messages from Firebase
-    db.ref("messages").on("child_added", snapshot => {
-      const data = snapshot.val();
-      if(data) displayMessage(data.sender, data.text);
-    });
+    // Setup presence system in Firebase for online user tracking
+    function setupPresence(uid) {
+      if (userStatusRef) userStatusRef.off();
 
-    // Login button
+      userStatusRef = onlineUsersRef.child(uid);
+
+      const connectedRef = firebase.database().ref(".info/connected");
+      connectedRef.on("value", snapshot => {
+        if (snapshot.val() === true) {
+          userStatusRef.set(true);
+          userStatusRef.onDisconnect().remove();
+        }
+      });
+
+      // Listen for online users count updates
+      onlineUsersRef.on("value", snapshot => {
+        const users = snapshot.val() || {};
+        const count = Object.keys(users).length;
+        updateOnlineUsers(count);
+      });
+    }
+
+    // Update online user count display
+    function updateOnlineUsers(count) {
+      onlineUsersDiv.textContent = `Online Users: ${count}`;
+    }
+
+    // Reference to onlineUsers in database
+    const onlineUsersRef = db.ref("onlineUsers");
+
+    // Login button click
     loginBtn.addEventListener("click", () => {
       const code = accessCodeInput.value.trim();
       if (accessCodes[code]) {
         currentUser = accessCodes[code];
         loginError.style.display = "none";
         loginSection.style.display = "none";
+        lecturesSection.style.display = "none";
         chatSection.style.display = "flex";
         emergencyBtn.style.display = "inline-block";
 
-        // Increase online users count
-        onlineUsersCount++;
-        updateOnlineUsers(onlineUsersCount);
-
-        displayMessage("System", `Welcome ${currentUser}! You have entered the help desk.`);
+        displayWelcomeMessage(currentUser);
+        setupPresence(currentUser);
       } else {
         loginError.style.display = "block";
       }
     });
 
-    // Send message
+    // Listen for new chat messages
+    db.ref("messages").on("child_added", snapshot => {
+      const data = snapshot.val();
+      if (data) displayMessage(data.sender, data.text);
+    });
+
+    // Handle sending a chat message
     chatForm.addEventListener("submit", e => {
       e.preventDefault();
       if (!currentUser) return;
@@ -390,7 +546,6 @@ const firebaseConfig = {
       const message = messageInput.value.trim();
       if (!message) return;
 
-      // Save message to Firebase
       db.ref("messages").push({
         sender: currentUser,
         text: message,
@@ -400,20 +555,22 @@ const firebaseConfig = {
       messageInput.value = "";
     });
 
-    // Emergency Surge button click
+    // Emergency Surge button to leave chat
     emergencyBtn.addEventListener("click", () => {
       chatSection.style.display = "none";
       emergencyBtn.style.display = "none";
       lecturesSection.style.display = "block";
+
       updateOnlineUsers(0);
-      onlineUsersCount = 0;
+      if (userStatusRef) {
+        userStatusRef.remove();
+        userStatusRef = null;
+      }
       currentUser = null;
       loginSection.style.display = "block";
       accessCodeInput.value = "";
       loginError.style.display = "none";
-
-      // Clear messages from UI
-      messagesDiv.innerHTML = "";
+      clearMessages();
     });
   </script>
 </body>
