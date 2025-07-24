@@ -1,457 +1,171 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Instagram Style Chat - Karachi Board Medical Coaching Center</title>
-
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Karachi Board Chat Portal</title>
   <style>
-    /* RESET */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #fafafa;
-      color: #262626;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-    }
+    /* Reset & styling */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family:'Poppins',sans-serif; background:#e8f5e9; height:100vh; display:flex; flex-direction:column; }
+    header { background:#169116; color:#fff; text-align:center; padding:16px; font-size:1.6rem; font-weight:600; }
+    main { flex:1; display:flex; justify-content:center; padding:10px; overflow:hidden; }
 
-    header {
-      background-color: #0095f6;
-      color: white;
-      font-weight: 700;
-      padding: 15px 20px;
-      text-align: center;
-      font-size: 18px;
-      flex-shrink: 0;
-      user-select: none;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      background-color: #fafafa;
-      overflow: hidden;
-      position: relative;
-      padding: 0 0 0 0;
-    }
-
-    /* ===== LOGIN SECTION ===== */
+    /* LOGIN */
     #login-section {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgb(0 0 0 / 0.12);
-      max-width: 360px;
-      width: 100%;
-      padding: 40px 30px;
-      margin: auto;
-      text-align: center;
-      user-select: none;
+      background:#fff; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.1);
+      max-width:360px; width:100%; padding:30px; text-align:center;
     }
-
-    #login-section p {
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 16px;
-      color: #262626;
-    }
-
+    #login-section p { margin-bottom:20px; color:#169116; font-size:1.1rem; font-weight:600; }
     #access-code {
-      width: 100%;
-      font-size: 16px;
-      padding: 14px 18px;
-      border: 1.5px solid #dbdbdb;
-      border-radius: 22px;
-      outline-offset: 1px;
-      transition: border-color 0.3s ease;
-      user-select: text;
+      width:100%; padding:14px; border:2px solid #169116; border-radius:25px;
+      font-size:1rem; margin-bottom:12px; outline:none; transition:border 0.3s;
     }
-
-    #access-code:focus {
-      border-color: #0095f6;
-      box-shadow: 0 0 6px #0095f6aa;
-    }
-
+    #access-code:focus { border-color:#0e6b0e; box-shadow:0 0 8px #0e6b0e33; }
     #login-btn {
-      margin-top: 24px;
-      background-color: #0095f6;
-      color: white;
-      font-weight: 700;
-      font-size: 16px;
-      padding: 14px 0;
-      border: none;
-      border-radius: 22px;
-      width: 100%;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
+      width:100%; background:#169116; color:white; padding:14px;
+      border:none; border-radius:25px; font-size:1rem; font-weight:600; cursor:pointer;
+      transition:background 0.3s;
     }
-
-    #login-btn:hover {
-      background-color: #0077cc;
-    }
-
+    #login-btn:hover { background:#0e6b0e; }
     #login-error {
-      margin-top: 14px;
-      font-size: 14px;
-      color: #ed4956;
-      display: none;
-      user-select: none;
+      margin-top:12px; color:#b71c1c; display:none; font-weight:600;
     }
 
-    /* ===== CHAT SECTION ===== */
+    /* CHAT */
     #chat-section {
-      display: none;
-      flex-direction: column;
-      max-width: 600px;
-      width: 100%;
-      height: 100%;
-      background-color: white;
-      border-radius: 0 0 16px 16px;
-      box-shadow: 0 8px 30px rgb(0 0 0 / 0.1);
-      user-select: text;
-      position: relative;
+      display:none; flex-direction:column; max-width:600px; width:100%;
+      background:#fff; border-radius:12px 12px 0 0; box-shadow:0 -4px 20px rgba(0,0,0,0.1);
+      position:relative; flex:1;
     }
-
-    /* Emergency button top right */
-    #emergency-btn {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: #ed4956;
-      border: none;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 24px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 3px 8px rgba(237, 73, 86, 0.8);
-      transition: background-color 0.3s ease;
-      user-select: none;
-      z-index: 10;
-    }
-
-    #emergency-btn:hover {
-      background: #c72f3f;
-    }
-
-    #online-users {
-      padding: 18px 24px 8px 24px;
-      font-weight: 600;
-      font-size: 13px;
-      color: #8e8e8e;
-      user-select: none;
-    }
+    #online-users { padding:16px; color:#4e7d4e; font-weight:600; font-size:14px; }
 
     #messages {
-      flex-grow: 1;
-      overflow-y: auto;
-      padding: 0 16px 20px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      scrollbar-width: thin;
-      scrollbar-color: #c7c7c7 transparent;
-      scroll-behavior: smooth;
-      outline: none;
-      -webkit-overflow-scrolling: touch;
-      user-select: text;
+      flex:1; overflow-y:auto; padding:16px;
+      display:flex; flex-direction:column; gap:12px;
+      scrollbar-width:thin; scrollbar-color:#a5d6a7 transparent;
     }
-    #messages::-webkit-scrollbar {
-      width: 8px;
-    }
-    #messages::-webkit-scrollbar-thumb {
-      background-color: #c7c7c7;
-      border-radius: 4px;
-    }
+    #messages::-webkit-scrollbar { width:6px; }
+    #messages::-webkit-scrollbar-thumb { background:#a5d6a7; border-radius:3px; }
 
-    /* Each message wrapper */
-    .message-wrapper {
-      display: flex;
-      flex-direction: column;
-      max-width: 70%;
-      word-break: break-word;
-    }
+    .message-wrapper { display:flex; flex-direction:column; max-width:75%; }
+    .message-wrapper.left { align-self:flex-start; }
+    .message-wrapper.right { align-self:flex-end; }
 
-    /* Left (other users) */
-    .left {
-      align-self: flex-start;
-      text-align: left;
-    }
-
-    /* Right (current user) */
-    .right {
-      align-self: flex-end;
-      text-align: right;
-    }
-
-    /* Username label above each message */
-    .username {
-      font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 3px;
-      color: #262626;
-      user-select: text;
-    }
-
-    /* Bubble styles */
+    .username { font-size:13px; font-weight:600; margin-bottom:4px; color:#555; }
     .bubble {
-      padding: 12px 16px;
-      border-radius: 20px;
-      font-size: 15px;
-      line-height: 1.4;
-      position: relative;
-      box-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
-      user-select: text;
-      white-space: pre-wrap;
-      word-wrap: break-word;
+      padding:12px 16px; border-radius:18px; font-size:15px; position:relative;
+      line-height:1.4;
     }
-
-    /* Other users bubble */
     .left .bubble {
-      background-color: #f0f2f5;
-      color: #050505;
-      border-bottom-left-radius: 3px;
-      border-bottom-right-radius: 20px;
-      border-top-right-radius: 20px;
-      border-top-left-radius: 20px;
+      background:#f1f8e9; color:#2e2e2e; border-bottom-left-radius:3px;
     }
-
-    /* Current user bubble */
     .right .bubble {
-      background-color: #0095f6;
-      color: white;
-      border-bottom-right-radius: 3px;
-      border-bottom-left-radius: 20px;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
+      background:linear-gradient(135deg,#81d4fa,#fffde7);
+      color:#004d40; border-bottom-right-radius:3px;
+    }
+    .sender-KuchuPrincess.right .bubble {
+      background:linear-gradient(135deg,#ffecb3,#ffe0b2);
+      color:#bf360c;
     }
 
-    /* Timestamp below bubble */
     .timestamp {
-      font-size: 11px;
-      color: #8e8e8e;
-      margin-top: 4px;
-      user-select: none;
+      font-size:11px; margin-top:4px; color:#888;
     }
-    .right .timestamp {
-      color: #d6e8ff;
-    }
+    .right .timestamp { color:#5a8c5a; }
 
-    /* Welcome message (centered) */
     #welcome-message {
-      color: #8e8e8e;
-      font-style: italic;
-      font-weight: 500;
-      text-align: center;
-      margin-top: 20px;
-      user-select: none;
+      text-align:center; font-style:italic; color:#888; margin:20px 0;
     }
 
-    /* ===== INPUT AREA ===== */
     #chat-form {
-      display: flex;
-      padding: 14px 20px;
-      align-items: center;
-      background-color: white;
-      border-top: 1px solid #dbdbdb;
-      flex-shrink: 0;
-      gap: 12px;
-      user-select: none;
+      display:flex; padding:12px 16px; border-top:1px solid #e0e0e0; gap:12px;
     }
-
     #message-input {
-      flex-grow: 1;
-      border-radius: 20px;
-      border: 1.5px solid #dbdbdb;
-      padding: 12px 16px;
-      font-size: 15px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      outline-offset: 1px;
-      outline-color: transparent;
-      user-select: text;
-      transition: border-color 0.3s ease;
+      flex:1; padding:12px 16px; border:1.5px solid #ccc;
+      border-radius:22px; outline:none; font-size:15px;
+      transition:border 0.3s;
     }
-    #message-input:focus {
-      border-color: #0095f6;
-      box-shadow: 0 0 8px #0095f6bb;
-    }
+    #message-input:focus { border-color:#169116; box-shadow:0 0 6px #16911633; }
 
-    #emoji-btn {
-      font-size: 22px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #262626;
-      padding: 0;
-      user-select: none;
-      transition: color 0.3s ease;
-      outline-offset: 2px;
-    }
-    #emoji-btn:hover, #emoji-btn:focus {
-      color: #0095f6;
-      outline: none;
-    }
+    #emoji-btn { font-size:22px; background:none; border:none; cursor:pointer; color:#555; }
+    #emoji-btn:hover { color:#169116; }
 
-    #chat-form button[type="submit"] {
-      background-color: #0095f6;
-      border: none;
-      color: white;
-      font-weight: 600;
-      font-size: 15px;
-      padding: 12px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
+    #send-btn {
+      background:#169116; color:white; border:none;
+      padding:12px 20px; border-radius:22px; font-size:15px;
+      font-weight:600; cursor:pointer; transition:opacity 0.3s;
     }
-    #chat-form button[type="submit"]:disabled {
-      background-color: #b2dffc;
-      cursor: default;
-    }
-    #chat-form button[type="submit"]:hover:not(:disabled) {
-      background-color: #0077cc;
-    }
+    #send-btn:disabled { background:#a5d6a7; cursor:default; opacity:0.6; }
 
-    /* Emoji Picker */
     #emoji-picker {
-      position: absolute;
-      bottom: 60px;
-      left: 20px;
-      background-color: white;
-      border: 1px solid #dbdbdb;
-      border-radius: 16px;
-      padding: 10px 12px;
-      box-shadow: 0 5px 15px rgb(0 0 0 / 0.15);
-      display: none;
-      max-width: 260px;
-      flex-wrap: wrap;
-      gap: 8px;
-      z-index: 50;
-      user-select: none;
+      position:absolute; bottom:70px; left:20px;
+      background:#fff; border:1px solid #ccc; border-radius:16px;
+      padding:10px; display:none; flex-wrap:wrap; gap:8px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.17); z-index:20;
     }
-
     #emoji-picker span {
-      font-size: 22px;
-      cursor: pointer;
-      padding: 6px 8px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease;
-      user-select: none;
+      font-size:20px; cursor:pointer; padding:4px 6px; border-radius:6px;
     }
-    #emoji-picker span:hover, #emoji-picker span:focus {
-      background-color: #f0f0f0;
-      outline: none;
-    }
+    #emoji-picker span:hover { background:#f5f5f5; }
 
-    /* LECTURES SECTION */
+    #emergency-btn {
+      position:absolute; top:18px; right:18px;
+      background:#ef5350; color:#fff; border:none;
+      padding:8px 16px; border-radius:24px;
+      font-size:14px; font-weight:700; cursor:pointer;
+      box-shadow:0 3px 8px rgba(237,83,80,0.8); z-index:15;
+    }
+    #emergency-btn:hover { background:#c62828; }
+
     #lectures-section {
-      display: none;
-      max-width: 600px;
-      width: 100%;
-      margin: auto;
-      padding: 40px 20px;
-      font-size: 16px;
-      color: #262626;
-      user-select: none;
+      display:none; text-align:center; padding:40px 20px;
+      max-width:600px; width:100%; color:#333;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 640px) {
-      #chat-section {
-        max-width: 100%;
-        border-radius: 0;
-        box-shadow: none;
-        height: 100vh;
-      }
-      #messages {
-        padding: 0 10px 16px 10px;
-      }
-      #chat-form {
-        padding: 10px 16px;
-      }
-      #message-input {
-        font-size: 14px;
-      }
-      header {
-        font-size: 16px;
-        padding: 12px 16px;
-      }
-      #login-section {
-        margin: 20px 16px;
-        padding: 30px 20px;
-      }
+    @media(max-width:640px){
+      header { font-size:1.4rem; }
+      #chat-section, #lectures-section, #login-section { max-width:100%; }
+      #messages { padding:12px; }
+      #chat-form { padding:10px; }
+      .bubble { font-size:14px; }
     }
   </style>
 </head>
 <body>
 
-  <header>Karachi Board Medical Coaching Center</header>
+<header>Karachi Board Coaching Center Chat Portal</header>
 
-  <main>
-    <!-- LOGIN -->
-    <section id="login-section" aria-label="Login Section">
-      <p>Enter Access Code to Chat</p>
-      <input
-        id="access-code"
-        type="text"
-        autocomplete="off"
-        placeholder="Access Code"
-        aria-label="Access Code"
-      />
-      <button id="login-btn" aria-label="Login">Login</button>
-      <p id="login-error" role="alert">Invalid access code. Please try again.</p>
-    </section>
+<main>
+  <section id="login-section">
+    <p>Enter access code to login</p>
+    <input id="access-code" type="password" placeholder="Access code" autocomplete="off" />
+    <button id="login-btn">Login</button>
+    <div id="login-error">Invalid code. Try again.</div>
+  </section>
 
-    <!-- CHAT -->
-    <section id="chat-section" aria-label="Chat Section" role="region" aria-live="polite">
-      <button id="emergency-btn" aria-label="Emergency - Leave Chat">Exit Chat</button>
-      <div id="online-users" aria-live="polite">Online Users: 0</div>
-      <div id="messages" tabindex="0" aria-live="polite" aria-relevant="additions"></div>
+  <section id="chat-section">
+    <button id="emergency-btn">Emergency Surge</button>
+    <div id="online-users">Online Users: 0</div>
+    <div id="messages"></div>
+    <form id="chat-form">
+      <button type="button" id="emoji-btn">😊</button>
+      <input id="message-input" type="text" placeholder="Type a message..." autocomplete="off" />
+      <button type="submit" id="send-btn" disabled>Send</button>
+    </form>
+    <div id="emoji-picker"></div>
+  </section>
 
-      <form id="chat-form" aria-label="Send Message Form">
-        <button type="button" id="emoji-btn" aria-label="Toggle Emoji Picker" title="Emoji Picker">😊</button>
-        <input
-          id="message-input"
-          type="text"
-          autocomplete="off"
-          placeholder="Message..."
-          aria-label="Type your message"
-          spellcheck="false"
-        />
-        <button type="submit" id="send-btn" aria-label="Send Message" disabled>Send</button>
-      </form>
+  <section id="lectures-section">
+    <h2>Lecture Materials</h2>
+    <p>You’re now logged out.</p>
+  </section>
+</main>
 
-      <div id="emoji-picker" role="list" aria-label="Emoji Picker">
-        <!-- Emojis will be loaded here by JS -->
-      </div>
-    </section>
-
-    <!-- LECTURES (Fallback) -->
-    <section id="lectures-section" aria-label="Lectures Section">
-      <h2>Lectures</h2>
-      <p>Lecture content goes here...</p>
-    </section>
-  </main>
-
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-  <script>
-    // Firebase config - REPLACE with your own config here
-    const firebaseConfig = {
-           apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+      apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
       authDomain: "umama-study-portal.firebaseapp.com",
       projectId: "umama-study-portal",
       storageBucket: "umama-study-portal.firebasestorage.app",
@@ -459,258 +173,151 @@
       appId: "1:438854993441:web:bbe2003382a6bfefbcc560",
     };
 
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+  const codes = { "ayan123": "Babygurl", "umama123": "KuchuPrincess" };
+  let currentUser = null, userRef = null;
 
-    // Elements
-    const loginSection = document.getElementById("login-section");
-    const chatSection = document.getElementById("chat-section");
-    const lecturesSection = document.getElementById("lectures-section");
-    const accessCodeInput = document.getElementById("access-code");
-    const loginBtn = document.getElementById("login-btn");
-    const loginError = document.getElementById("login-error");
-    const messagesDiv = document.getElementById("messages");
-    const chatForm = document.getElementById("chat-form");
-    const messageInput = document.getElementById("message-input");
-    const sendBtn = document.getElementById("send-btn");
-    const onlineUsersDiv = document.getElementById("online-users");
-    const emergencyBtn = document.getElementById("emergency-btn");
-    const emojiBtn = document.getElementById("emoji-btn");
-    const emojiPicker = document.getElementById("emoji-picker");
+  const loginSection = document.getElementById("login-section"),
+        chatSection = document.getElementById("chat-section"),
+        lectures = document.getElementById("lectures-section"),
+        accessField = document.getElementById("access-code"),
+        loginBtn = document.getElementById("login-btn"),
+        loginErr = document.getElementById("login-error"),
+        msgs = document.getElementById("messages"),
+        online = document.getElementById("online-users"),
+        chatForm = document.getElementById("chat-form"),
+        inputField = document.getElementById("message-input"),
+        sendBtn = document.getElementById("send-btn"),
+        emojiBtn = document.getElementById("emoji-btn"),
+        emojiPicker = document.getElementById("emoji-picker"),
+        emergencyBtn = document.getElementById("emergency-btn");
 
-    let currentUser = null;
-    let userStatusRef = null;
+  const emojis = ["😀","😂","🫥","😎","👍","😾","🔥","😭","🤔","🙌"];
+  emojis.forEach(e => {
+    const sp = document.createElement("span");
+    sp.textContent = e;
+    sp.tabIndex = 0;
+    sp.addEventListener("click", () => { insertAt(inputField, e); toggleSend(); });
+    emojiPicker.append(sp);
+  });
 
-    // Access codes: map code to username
-    const accessCodes = {
-      "babygurl": "Babygurl",
-      "kuchu": "KuchuPrincess"
-    };
+  emojiBtn.addEventListener("click", () => {
+    emojiPicker.style.display = emojiPicker.style.display === "flex" ? "none" : "flex";
+    emojiPicker.style.flexWrap = "wrap";
+  });
 
-    // Emoji list (basic)
-    const emojis = [
-      "😀","😁","😂","😭","😃","😄","😅","😆","😉","😊",
-      "😋","😎","😍","😘","🥰","😗","😙","😚","🙂","🤗",
-      "🤩","🤔","🤨","😐","😑","😶","🙄","😏","😣","😥",
-      "😮","🤐","😯","😪","😫","🥱","😴","😌","😛","🫨",
-      "😝","🤤","😒","😓","😔","😕","🙃","🤑","😲","☹️",
-      "🙁","😖","😞","😟","😤","😢","😭","😦","😧","😨",
-      "😩","🤯","😬","😰","😱","🥵","🥶","😳","🤪","😵",
-      "😡","😠","🤬","😷","😾","🤕","🤢","🤮","🤧","🐈"
-    ];
-
-    // Populate emoji picker
-    function loadEmojis() {
-      emojiPicker.innerHTML = '';
-      emojis.forEach(e => {
-        const span = document.createElement('span');
-        span.textContent = e;
-        span.tabIndex = 0;
-        span.setAttribute('role', 'button');
-        span.setAttribute('aria-label', `Emoji ${e}`);
-        span.addEventListener('click', () => {
-          insertAtCursor(messageInput, e);
-          toggleSendButton();
-        });
-        span.addEventListener('keydown', (ev) => {
-          if (ev.key === 'Enter' || ev.key === ' ') {
-            ev.preventDefault();
-            insertAtCursor(messageInput, e);
-            toggleSendButton();
-          }
-        });
-        emojiPicker.appendChild(span);
-      });
+  document.addEventListener("click", e => {
+    if (!emojiPicker.contains(e.target) && e.target !== emojiBtn) {
+      emojiPicker.style.display = "none";
     }
+  });
 
-    // Insert emoji or text at cursor position in input
-    function insertAtCursor(input, textToInsert) {
-      const start = input.selectionStart;
-      const end = input.selectionEnd;
-      const text = input.value;
-      input.value = text.slice(0, start) + textToInsert + text.slice(end);
-      input.selectionStart = input.selectionEnd = start + textToInsert.length;
-      input.focus();
-    }
+  function insertAt(el, text) {
+    const s = el.selectionStart, e = el.selectionEnd;
+    el.value = el.value.slice(0,s) + text + el.value.slice(e);
+    el.selectionStart = el.selectionEnd = s + text.length;
+    el.focus();
+  }
 
-    loadEmojis();
+  function toggleSend() {
+    sendBtn.disabled = !inputField.value.trim();
+  }
+  inputField.addEventListener("input", toggleSend);
 
-    // Format timestamp like Instagram (hh:mm AM/PM)
-    function formatTimestamp(timestamp) {
-      const d = new Date(timestamp);
-      let hours = d.getHours();
-      let minutes = d.getMinutes();
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      hours = hours % 12 || 12;
-      minutes = minutes < 10 ? '0' + minutes : minutes;
-      return `${hours}:${minutes} ${ampm}`;
-    }
+  function formatTime(ts) {
+    const d = new Date(ts);
+    let h = d.getHours(), m = d.getMinutes();
+    const am = h >=12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    if (m < 10) m = "0"+m;
+    return `${h}:${m} ${am}`;
+  }
 
-    // Add message to chat area with username repeated every message
-    function addMessage(msg) {
-      // Remove welcome message if any
-      const welcomeMsg = document.getElementById("welcome-message");
-      if (welcomeMsg) welcomeMsg.remove();
+  function addMsg(m) {
+    const w = document.createElement("div");
+    w.className = "message-wrapper " + (m.sender===currentUser?"right":"left");
+    const u = document.createElement("div");
+    u.className="username"; u.textContent=m.sender;
+    const b = document.createElement("div");
+    b.className="bubble"; b.textContent=m.text;
+    const t = document.createElement("div");
+    t.className="timestamp"; t.textContent=formatTime(m.timestamp);
+    w.append(u,b,t); msgs.append(w);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
 
-      // Message container
-      const wrapper = document.createElement('div');
-      wrapper.classList.add('message-wrapper');
-      wrapper.classList.add(msg.sender === currentUser ? 'right' : 'left');
-      wrapper.setAttribute('role', 'article');
-      wrapper.setAttribute('aria-label', `${msg.sender} message`);
+  function clearMsgs() { msgs.innerHTML = ""; }
 
-      // Username label above bubble
-      const usernameDiv = document.createElement('div');
-      usernameDiv.classList.add('username');
-      usernameDiv.textContent = msg.sender;
-      wrapper.appendChild(usernameDiv);
+  function listen() {
+    db.ref("messages").off();
+    db.ref("messages").on("child_added", snap => addMsg(snap.val()));
+  }
 
-      // Bubble with message text
-      const bubble = document.createElement('div');
-      bubble.classList.add('bubble');
-      bubble.textContent = msg.text;
-      wrapper.appendChild(bubble);
-
-      // Timestamp below bubble
-      const timeDiv = document.createElement('div');
-      timeDiv.classList.add('timestamp');
-      timeDiv.textContent = formatTimestamp(msg.timestamp);
-      wrapper.appendChild(timeDiv);
-
-      messagesDiv.appendChild(wrapper);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    // Clear all messages
-    function clearMessages() {
-      messagesDiv.innerHTML = '';
-    }
-
-    // Listen for new messages from Firebase
-    function listenForMessages() {
-      const messagesRef = db.ref('messages');
-      messagesRef.off(); // detach previous listeners
-
-      messagesRef.on('child_added', (snapshot) => {
-        const msg = snapshot.val();
-        addMessage(msg);
-      });
-    }
-
-    // Track online users
-    function trackOnlineUsers() {
-      const onlineRef = db.ref('onlineUsers');
-      const userKey = currentUser + Date.now();
-
-      userStatusRef = onlineRef.child(userKey);
-      userStatusRef.set({ name: currentUser, timestamp: Date.now() });
-      userStatusRef.onDisconnect().remove();
-
-      onlineRef.on('value', (snapshot) => {
-        const users = snapshot.val() || {};
-        const count = Object.keys(users).length;
-        onlineUsersDiv.textContent = `Online Users: ${count}`;
-      });
-    }
-
-    // Toggle send button disabled state
-    function toggleSendButton() {
-      sendBtn.disabled = messageInput.value.trim() === '';
-    }
-
-    messageInput.addEventListener('input', toggleSendButton);
-
-    // Login handler
-    loginBtn.addEventListener('click', () => {
-      const code = accessCodeInput.value.trim().toLowerCase();
-      if (code in accessCodes) {
-        currentUser = accessCodes[code];
-        loginError.style.display = 'none';
-
-        loginSection.style.display = 'none';
-        lecturesSection.style.display = 'none';
-        chatSection.style.display = 'flex';
-
-        clearMessages();
-        displayWelcomeMessage(currentUser);
-        listenForMessages();
-        trackOnlineUsers();
-        messageInput.value = '';
-        toggleSendButton();
-        messageInput.focus();
-      } else {
-        loginError.style.display = 'block';
-        accessCodeInput.focus();
-      }
+  function track() {
+    const ref = db.ref("onlineUsers");
+    const key = currentUser + Date.now();
+    userRef = ref.child(key);
+    userRef.set(true);
+    userRef.onDisconnect().remove();
+    ref.on("value", snap => {
+      const v = snap.val()||{};
+      online.textContent = "Online Users: "+Object.keys(v).length;
     });
+  }
 
-    // Display welcome message before first chat message
-    function displayWelcomeMessage(user) {
-      const p = document.createElement('p');
-      p.id = 'welcome-message';
-      p.textContent = `Welcome, ${user}! How can we assist you today?`;
-      p.style.textAlign = 'center';
-      p.style.marginTop = '20px';
-      p.style.color = '#8e8e8e';
-      p.style.fontStyle = 'italic';
-      messagesDiv.appendChild(p);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  function showWelcome() {
+    const p = document.createElement("p");
+    p.id="welcome-message"; p.textContent = `Welcome, ${currentUser}!`;
+    msgs.append(p); msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  loginBtn.addEventListener("click", () => {
+    const code = accessField.value.trim().toLowerCase();
+    if (codes[code]) {
+      currentUser = codes[code];
+      loginErr.style.display = "none";
+      loginSection.style.display = "none";
+      lectures.style.display = "none";
+      chatSection.style.display = "flex";
+      clearMsgs();
+      showWelcome();
+      listen();
+      track();
+      inputField.value = "";
+      toggleSend();
+      inputField.focus();
+    } else {
+      loginErr.style.display = "block";
+      accessField.focus();
     }
+  });
 
-    // Send message handler
-    chatForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const text = messageInput.value.trim();
-      if (!text) return;
+  chatForm.addEventListener("submit", e => {
+    e.preventDefault();
+    if (!currentUser) return;
+    const txt = inputField.value.trim();
+    if (!txt) return;
+    db.ref("messages").push({ sender:currentUser, text:txt, timestamp:Date.now() });
+    inputField.value = "";
+    toggleSend();
+    inputField.focus();
+  });
 
-      const msg = {
-        sender: currentUser,
-        text,
-        timestamp: Date.now()
-      };
-      db.ref('messages').push(msg);
-      messageInput.value = '';
-      toggleSendButton();
-      messageInput.focus();
-    });
+  emergencyBtn.addEventListener("click", () => {
+    if (userRef) userRef.remove();
+    chatSection.style.display = "none";
+    lectures.style.display = "block";
+    online.textContent = "";
+    clearMsgs();
+    currentUser = null;
+    accessField.value = "";
+    loginSection.style.display = "block";
+    accessField.focus();
+  });
 
-    // Emergency button - exit chat
-    emergencyBtn.addEventListener('click', () => {
-      if (userStatusRef) {
-        userStatusRef.remove();
-      }
-      chatSection.style.display = 'none';
-      lecturesSection.style.display = 'block';
-      onlineUsersDiv.textContent = '';
-      clearMessages();
-      currentUser = null;
-      accessCodeInput.value = '';
-      loginSection.style.display = 'block';
-      accessCodeInput.focus();
-    });
-
-    // Emoji button toggle
-    emojiBtn.addEventListener('click', () => {
-      if (emojiPicker.style.display === 'flex') {
-        emojiPicker.style.display = 'none';
-      } else {
-        emojiPicker.style.display = 'flex';
-      }
-    });
-
-    // Close emoji picker if click outside input or emoji picker
-    document.addEventListener('click', (e) => {
-      if (!emojiPicker.contains(e.target) && e.target !== emojiBtn && e.target !== messageInput) {
-        emojiPicker.style.display = 'none';
-      }
-    });
-
-    // Focus message input on page load
-    window.onload = () => {
-      accessCodeInput.focus();
-    };
-  </script>
-
+  window.onload = () => accessField.focus();
+</script>
 </body>
 </html>
