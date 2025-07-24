@@ -3,47 +3,116 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Assignments - Karachi Board Medical Coaching</title>
+  <title>Umama's Study Portal - Assignments</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  
   <link rel="stylesheet" href="style.css" />
+  
 </head>
 <body>
-  <header>
-    <h1>Assignments</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="lectures.html">Lectures</a>
-      <a href="notes.html">Notes</a>
-      <a href="helpdesk.html">Help Desk</a>
-    </nav>
-  </header>
 
-  <main>
-    <section>
-      <h2>Zoology</h2>
-      <ul>
-        <li><a href="https://drive.google.com/file/d/1ZoologyAssignment1/view?usp=sharing" target="_blank">Blood System Worksheet (PDF)</a></li>
-      </ul>
-    </section>
+<header>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Board_of_Intermediate_and_Secondary_Education_Karachi_logo.png/220px-Board_of_Intermediate_and_Secondary_Education_Karachi_logo.png"
+    alt="Karachi Board Logo"
+    class="karachi-logo"
+  />
+  <h1>Official Karachi Board Medical Coaching Portal</h1>
+</header>
 
-    <section>
-      <h2>Botany</h2>
-      <ul>
-        <li><a href="https://drive.google.com/file/d/1BotanyAssignment1/view?usp=sharing" target="_blank">Plant Cells Assignment (PDF)</a></li>
-      </ul>
-    </section>
+<main>
+  <h2>Assignments</h2>
+  <button id="new-btn">+ New Assignment</button>
 
-    <section>
-      <h2>Chemistry</h2>
-      <ul>
-        <li><a href="https://drive.google.com/file/d/1ChemistryAssignment1/view?usp=sharing" target="_blank">Organic Chemistry Problems (PDF)</a></li>
-      </ul>
-    </section>
+  <ul id="assignments-list"></ul>
 
-    <!-- Add other subjects as needed -->
-  </main>
+  <div id="editor-container">
+    <input type="text" id="assignment-title" placeholder="Assignment Title" />
+    <textarea id="assignment-text" placeholder="Write your assignment here..."></textarea>
+    <br />
+    <button id="save-btn">Save Assignment</button>
+  </div>
+</main>
 
-  <footer>
-    <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
-  </footer>
+<footer>
+  <p>© 2025 Umama's Study Portal | Coaching Center. All rights reserved.</p>
+</footer>
+
+<script>
+  const STORAGE_KEY = 'umama_assignments';
+  const assignmentsList = document.getElementById('assignments-list');
+  const editorContainer = document.getElementById('editor-container');
+  const assignmentTitleInput = document.getElementById('assignment-title');
+  const assignmentTextArea = document.getElementById('assignment-text');
+  const saveBtn = document.getElementById('save-btn');
+  const newBtn = document.getElementById('new-btn');
+
+  let assignments = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  let currentEditIndex = -1;
+
+  function renderAssignments() {
+    assignmentsList.innerHTML = '';
+    if(assignments.length === 0){
+      assignmentsList.innerHTML = '<li style="color:#777; font-style: italic;">No assignments yet. Click "New Assignment" to add one.</li>';
+      return;
+    }
+    assignments.forEach((assignment, index) => {
+      const li = document.createElement('li');
+      li.textContent = assignment.title || 'Untitled Assignment';
+      li.addEventListener('click', () => editAssignment(index));
+      assignmentsList.appendChild(li);
+    });
+  }
+
+  function editAssignment(index) {
+    currentEditIndex = index;
+    assignmentTitleInput.value = assignments[index].title;
+    assignmentTextArea.value = assignments[index].content;
+    editorContainer.style.display = 'block';
+    assignmentTitleInput.focus();
+  }
+
+  function saveAssignment() {
+    const title = assignmentTitleInput.value.trim();
+    const content = assignmentTextArea.value.trim();
+
+    if(!title){
+      alert('Please enter a title for the assignment.');
+      assignmentTitleInput.focus();
+      return;
+    }
+
+    if(currentEditIndex === -1){
+      assignments.push({ title, content });
+    } else {
+      assignments[currentEditIndex] = { title, content };
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(assignments));
+    renderAssignments();
+    clearEditor();
+    alert('Assignment saved successfully!');
+  }
+
+  function clearEditor() {
+    assignmentTitleInput.value = '';
+    assignmentTextArea.value = '';
+    editorContainer.style.display = 'none';
+    currentEditIndex = -1;
+  }
+
+  newBtn.addEventListener('click', () => {
+    clearEditor();
+    editorContainer.style.display = 'block';
+    assignmentTitleInput.focus();
+  });
+
+  saveBtn.addEventListener('click', saveAssignment);
+
+  renderAssignments();
+</script>
+
 </body>
 </html>
