@@ -20,29 +20,26 @@
     }
 
     header {
-      background: #169116;
+      background: #169116; /* green header */
       color: #fff;
       padding: 1.5rem;
       text-align: center;
       font-weight: 600;
       font-size: 1.8rem;
-      box-shadow: 0 4px 10px rgba(22, 145, 22, 0.6);
+      box-shadow: 0 4px 10px rgba(22, 145, 22, 0.5);
       letter-spacing: 1px;
-      user-select: none;
     }
 
     main {
       flex-grow: 1;
       max-width: 700px;
-      margin: 2rem auto 3rem auto;
+      margin: 2rem auto;
       background: #fff;
       border-radius: 25px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       padding: 2rem;
-      min-height: 600px;
-      position: relative;
     }
 
     /* Login Section */
@@ -65,8 +62,8 @@
       transition: border-color 0.3s ease;
     }
     #access-code:focus {
-      border-color: #0d7d0d;
-      box-shadow: 0 0 8px #0d7d0d88;
+      border-color: #0f890f;
+      box-shadow: 0 0 8px #0f890faa;
     }
     #login-btn {
       background: #169116;
@@ -79,11 +76,11 @@
       cursor: pointer;
       transition: background 0.3s ease;
       font-weight: 600;
-      box-shadow: 0 4px 12px #0d7d0d88;
+      box-shadow: 0 4px 12px #169116aa;
     }
     #login-btn:hover {
-      background: #0d7d0d;
-      box-shadow: 0 6px 20px #0d7d0d99;
+      background: #0f890f;
+      box-shadow: 0 6px 20px #0f890faa;
     }
     #login-error {
       color: #b71c1c;
@@ -97,7 +94,24 @@
       display: none;
       flex-direction: column;
       height: 500px;
-      position: relative;
+    }
+
+    #emergency-btn {
+      background: #a1d490;
+      border: none;
+      padding: 10px 20px;
+      margin-bottom: 15px;
+      border-radius: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #115611;
+      transition: background 0.3s ease;
+      align-self: flex-start;
+      box-shadow: 0 3px 10px #8cc57c99;
+    }
+    #emergency-btn:hover {
+      background: #8cc57c;
+      box-shadow: 0 4px 15px #6f9d5dcc;
     }
 
     #online-users {
@@ -107,18 +121,16 @@
       text-align: right;
       margin-bottom: 15px;
       letter-spacing: 0.8px;
-      user-select: none;
     }
 
     #messages {
-      background: #e6f4e6;
+      background: #e6f1d9;
       border-radius: 25px;
       padding: 20px;
       flex-grow: 1;
       overflow-y: auto;
-      box-shadow: inset 0 0 10px #16911655;
+      box-shadow: inset 0 0 10px #9ccd6d88;
       scroll-behavior: smooth;
-      user-select: text;
     }
 
     .message {
@@ -132,25 +144,32 @@
       box-shadow: 0 2px 10px rgb(0 0 0 / 0.08);
       word-wrap: break-word;
       transition: transform 0.3s ease;
-      color: black;
     }
 
     /* Sender Styles */
     .sender-Babygurl {
-      background: linear-gradient(135deg, #2196f3, #90caf9);
-      color: #003366;
+      background: linear-gradient(135deg, #b9f6ca, #d0f8ce);
+      color: #004d40;
       margin-left: auto;
       border-bottom-right-radius: 4px;
       text-align: right;
-      box-shadow: 0 4px 8px #0d47a1aa;
     }
     .sender-KuchuPrincess {
-      background: linear-gradient(135deg, #ffeb3b, #ff7043);
-      color: #5d2c00;
+      background: linear-gradient(135deg, #a5d6a7, #c8e6c9);
+      color: #1b5e20;
       margin-right: auto;
       border-bottom-left-radius: 4px;
       text-align: left;
-      box-shadow: 0 4px 8px #bf360caa;
+    }
+    .sender-System {
+      background: #dcedc8;
+      color: #558b2f;
+      margin: 10px auto;
+      border-radius: 12px;
+      font-style: italic;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: none;
     }
 
     .message strong {
@@ -161,10 +180,8 @@
       display: block;
       font-size: 0.75rem;
       margin-top: 6px;
-      opacity: 0.7;
+      opacity: 0.6;
       font-style: italic;
-      color: #333;
-      user-select: none;
     }
 
     /* Input area */
@@ -182,13 +199,13 @@
       font-size: 1.1rem;
       outline: none;
       transition: border-color 0.3s ease;
-      background: #e8f5e9;
-      color: #111;
-      box-shadow: 0 2px 8px #16911688;
+      background: #f9fff6;
+      color: #444;
+      box-shadow: 0 2px 8px #a7d2a955;
     }
     #message-input:focus {
-      border-color: #0d7d0d;
-      box-shadow: 0 0 12px #0d7d0d88;
+      border-color: #0f890f;
+      box-shadow: 0 0 12px #0f890faa;
     }
 
     #input-area button {
@@ -200,13 +217,12 @@
       border-radius: 30px;
       cursor: pointer;
       font-weight: 700;
-      box-shadow: 0 6px 18px #0d7d0d88;
+      box-shadow: 0 6px 18px #169116cc;
       transition: background 0.3s ease;
-      user-select: none;
     }
     #input-area button:hover {
-      background: #0d7d0d;
-      box-shadow: 0 8px 28px #0d7d0d99;
+      background: #0f890f;
+      box-shadow: 0 8px 28px #0f890fcc;
     }
 
     /* Scrollbar style */
@@ -214,40 +230,28 @@
       width: 10px;
     }
     #messages::-webkit-scrollbar-thumb {
-      background: #169116cc;
+      background: #9ccd6dcc;
       border-radius: 25px;
     }
 
-    /* Emergency Surge Button */
-    #emergency-btn {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: #b71c1c;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px #7f0000cc;
-      transition: background 0.3s ease;
-      user-select: none;
-      display: none; /* Only visible when chat active */
-      z-index: 10;
+    /* Lectures section */
+    #lectures-section {
+      display: none;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 18px #b2dfdbcc;
+      font-family: 'Poppins', sans-serif;
     }
-    #emergency-btn:hover {
-      background: #7f0000;
-      box-shadow: 0 6px 20px #7f000099;
-    }
-
   </style>
 </head>
 <body>
   <header>Karachi Board Medical Coaching Center - Help Desk Chat</header>
 
   <main>
+    <!-- Login Section -->
     <section id="login-section">
       <p>Please enter your access code - only available for admins.</p>
       <input
@@ -260,6 +264,7 @@
       <p id="login-error">Incorrect code, try again.</p>
     </section>
 
+    <!-- Chat Section -->
     <section id="chat-section">
       <button id="emergency-btn" title="Emergency Surge: Go to Lectures">Emergency Surge</button>
       <div id="online-users">Online Users: 0</div>
@@ -269,3 +274,149 @@
         <div id="input-area">
           <input
             type="text"
+            id="message-input"
+            placeholder="Type your message here..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Send</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Lectures Section -->
+  <section id="lectures-section">
+    <h2>Lectures Page</h2>
+    <p>Welcome to the lectures section. Here you can add links, videos, notes, and study materials.</p>
+  </section>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Your Firebase configuration (from your data)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJNRqs",
+      authDomain: "kbmcc-3e875.firebaseapp.com",
+      databaseURL: "https://kbmcc-3e875-default-rtdb.firebaseio.com",
+      projectId: "kbmcc-3e875",
+      storageBucket: "kbmcc-3e875.appspot.com",
+      messagingSenderId: "850162362899",
+      appId: "1:850162362899:web:39e3b62a176df01ff22692",
+      measurementId: "G-B0M9ME4P3D"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Access codes
+    const accessCodes = {
+      "ayan123": "Babygurl",
+      "umama123": "KuchuPrincess"
+    };
+
+    // DOM Elements
+    const loginSection = document.getElementById("login-section");
+    const chatSection = document.getElementById("chat-section");
+    const lecturesSection = document.getElementById("lectures-section");
+    const accessCodeInput = document.getElementById("access-code");
+    const loginBtn = document.getElementById("login-btn");
+    const loginError = document.getElementById("login-error");
+    const messagesDiv = document.getElementById("messages");
+    const onlineUsersDiv = document.getElementById("online-users");
+    const chatForm = document.getElementById("chat-form");
+    const messageInput = document.getElementById("message-input");
+    const emergencyBtn = document.getElementById("emergency-btn");
+
+    let currentUser = null;
+    let onlineUsersCount = 0;
+
+    // Online users count update
+    function updateOnlineUsers(count) {
+      onlineUsersDiv.textContent = `Online Users: ${count}`;
+    }
+
+    // Display message in chat
+    function displayMessage(sender, text) {
+      const messageEl = document.createElement("div");
+      messageEl.classList.add("message");
+
+      if (sender === "Babygurl") {
+        messageEl.classList.add("sender-Babygurl");
+      } else if (sender === "KuchuPrincess") {
+        messageEl.classList.add("sender-KuchuPrincess");
+      } else {
+        messageEl.classList.add("sender-System");
+      }
+
+      const timeStr = new Date().toLocaleString();
+      messageEl.innerHTML = `<strong>${sender}:</strong> ${text} <span class="timestamp">${timeStr}</span>`;
+      messagesDiv.appendChild(messageEl);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // Listen for new messages from Firebase
+    db.ref("messages").on("child_added", snapshot => {
+      const data = snapshot.val();
+      if(data) displayMessage(data.sender, data.text);
+    });
+
+    // Login button
+    loginBtn.addEventListener("click", () => {
+      const code = accessCodeInput.value.trim();
+      if (accessCodes[code]) {
+        currentUser = accessCodes[code];
+        loginError.style.display = "none";
+        loginSection.style.display = "none";
+        chatSection.style.display = "flex";
+        emergencyBtn.style.display = "inline-block";
+
+        // Increase online users count
+        onlineUsersCount++;
+        updateOnlineUsers(onlineUsersCount);
+
+        displayMessage("System", `Welcome ${currentUser}! You have entered the help desk.`);
+      } else {
+        loginError.style.display = "block";
+      }
+    });
+
+    // Send message
+    chatForm.addEventListener("submit", e => {
+      e.preventDefault();
+      if (!currentUser) return;
+
+      const message = messageInput.value.trim();
+      if (!message) return;
+
+      // Save message to Firebase
+      db.ref("messages").push({
+        sender: currentUser,
+        text: message,
+        timestamp: Date.now()
+      });
+
+      messageInput.value = "";
+    });
+
+    // Emergency Surge button click
+    emergencyBtn.addEventListener("click", () => {
+      chatSection.style.display = "none";
+      emergencyBtn.style.display = "none";
+      lecturesSection.style.display = "block";
+      updateOnlineUsers(0);
+      onlineUsersCount = 0;
+      currentUser = null;
+      loginSection.style.display = "block";
+      accessCodeInput.value = "";
+      loginError.style.display = "none";
+
+      // Clear messages from UI
+      messagesDiv.innerHTML = "";
+    });
+  </script>
+</body>
+</html>
