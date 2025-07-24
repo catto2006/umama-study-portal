@@ -2,47 +2,313 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Help Desk – Karachi Board Medical Coaching Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Help Desk Chat - KB Medical Coaching Center</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="helpdesk.js"></script>
+  <style>
+    body {
+      background: #0f2027;  /* dark blueish */
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: #003366;
+      padding: 1rem 2rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 1.2px;
+      color: #ffd700;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+    }
+    main {
+      flex-grow: 1;
+      padding: 1rem 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: rgba(255 255 255 / 0.05);
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgb(255 255 255 / 0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    #login-section {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    #login-section input[type="password"] {
+      padding: 10px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      border: none;
+      margin-right: 10px;
+      width: 220px;
+    }
+    #login-section button {
+      padding: 10px 18px;
+      font-size: 1.1rem;
+      background: #0077cc;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      transition: background 0.3s ease;
+    }
+    #login-section button:hover {
+      background: #005fa3;
+    }
+    #chat-section {
+      display: none;
+      flex-direction: column;
+      height: 500px;
+    }
+    #online-users {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      color: #ffd700;
+      text-align: right;
+      font-weight: 600;
+    }
+    #messages {
+      flex-grow: 1;
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+      padding: 15px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    .message {
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 15px;
+      max-width: 75%;
+      word-wrap: break-word;
+      font-size: 1rem;
+      line-height: 1.3;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
+      position: relative;
+    }
+    .sender-Babygurl {
+      background: linear-gradient(135deg, #3a8dde, #f7e733);
+      color: #000;
+      margin-left: auto;
+      text-align: right;
+    }
+    .sender-KuchuPrincess {
+      background: linear-gradient(135deg, #f7e733, #dd4b39);
+      color: #000;
+      margin-right: auto;
+      text-align: left;
+    }
+    .timestamp {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-top: 3px;
+    }
+    #input-area {
+      display: flex;
+      gap: 10px;
+    }
+    #input-area input[type="text"] {
+      flex-grow: 1;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      box-shadow: inset 0 0 5px rgb(255 255 255 / 0.3);
+      background: rgba(255 255 255 / 0.1);
+      color: white;
+    }
+    #input-area button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      background: #ffd700;
+      border: none;
+      border-radius: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #333;
+      box-shadow: 0 0 10px #ffd700aa;
+      transition: box-shadow 0.3s ease;
+    }
+    #input-area button:hover {
+      box-shadow: 0 0 20px #ffd700ff;
+    }
+    /* Scrollbar for messages */
+    #messages::-webkit-scrollbar {
+      width: 10px;
+    }
+    #messages::-webkit-scrollbar-thumb {
+      background: #ffd700aa;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
+<header>KB Medical Coaching Center - Help Desk Chat</header>
 
-<header>
-  <img src="images/karachi_board_logo.png" class="board-logo" alt="Karachi Board Logo" />
-  <h1>Karachi Board Medical Coaching Center</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="lectures.html">Lectures</a>
-    <a href="assignments.html">Assignments</a>
-    <a href="notes.html">Notes</a>
-    <a href="helpdesk.html" class="active">Help Desk</a>
-  </nav>
-</header>
+<main>
+  <section id="login-section">
+    <p>Please enter your access code to join the chat.</p>
+    <input type="password" id="access-code" placeholder="Enter code here" autocomplete="off" />
+    <button id="login-btn">Enter</button>
+    <p id="login-error" style="color: #ff5555; margin-top:10px; display:none;">Incorrect code, try again.</p>
+  </section>
 
-<main class="container" id="chat-section">
-  <div id="auth">
-    <h2>Staff Only Access</h2>
-    <p>Please enter your access code:</p>
-    <input type="password" id="access-code" placeholder="Enter code..." />
-    <button onclick="verifyCode()" class="btn">Enter</button>
-  </div>
+  <section id="chat-section">
+    <div id="online-users">Online Users: 0</div>
+    <div id="messages"></div>
 
-  <div id="chat-area" class="hidden">
-    <h2>Live Help Desk</h2>
-    <p class="online-count" id="onlineUsers">Online Users: 0</p>
-    <div id="messages" class="messages"></div>
     <form id="chat-form">
-      <input type="text" id="chat-input" placeholder="Type your message..." required />
-      <button type="submit" class="btn">Send</button>
+      <div id="input-area">
+        <input type="text" id="message-input" autocomplete="off" placeholder="Type your message here..." required />
+        <button type="submit">Send</button>
+      </div>
     </form>
-  </div>
+  </section>
 </main>
 
-<footer>
-  <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
-</footer>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
+    authDomain: "umama-study-portal.firebaseapp.com",
+    projectId: "umama-study-portal",
+    storageBucket: "umama-study-portal.firebasestorage.app",
+    messagingSenderId: "438854993441",
+    appId: "1:438854993441:web:bbe2003382a6bfefbcc560",
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // DOM elements
+  const loginSection = document.getElementById('login-section');
+  const chatSection = document.getElementById('chat-section');
+  const loginBtn = document.getElementById('login-btn');
+  const accessCodeInput = document.getElementById('access-code');
+  const loginError = document.getElementById('login-error');
+  const messagesDiv = document.getElementById('messages');
+  const chatForm = document.getElementById('chat-form');
+  const messageInput = document.getElementById('message-input');
+  const onlineUsersDiv = document.getElementById('online-users');
+
+  // User info after login
+  let currentUser = null; 
+  // Possible codes and usernames
+  const users = {
+    'ayan123': { username: 'Babygurl', cssClass: 'sender-Babygurl' },
+    'umama123': { username: 'KuchuPrincess', cssClass: 'sender-KuchuPrincess' }
+  };
+
+  // Track online users count
+  let onlineUsersCount = 0;
+  let presenceRef = null;
+
+  // Login button event
+  loginBtn.addEventListener('click', () => {
+    const code = accessCodeInput.value.trim();
+    if (users[code]) {
+      currentUser = users[code];
+      startChat();
+      loginError.style.display = 'none';
+    } else {
+      loginError.style.display = 'block';
+    }
+  });
+
+  // Start the chat UI & functionality
+  function startChat() {
+    loginSection.style.display = 'none';
+    chatSection.style.display = 'flex';
+    accessCodeInput.value = '';
+    messageInput.focus();
+
+    setupPresence();
+    loadMessages();
+
+    // Submit message event
+    chatForm.addEventListener('submit', e => {
+      e.preventDefault();
+      sendMessage(messageInput.value.trim());
+      messageInput.value = '';
+    });
+  }
+
+  // Setup presence tracking to count online users
+  function setupPresence() {
+    const userId = 'user_' + Math.random().toString(36).substring(2, 9);
+    presenceRef = db.ref('presence/' + userId);
+    presenceRef.set({ username: currentUser.username, online: true });
+    presenceRef.onDisconnect().remove();
+
+    // Listen to presence changes
+    const presenceListRef = db.ref('presence');
+    presenceListRef.on('value', snapshot => {
+      const val = snapshot.val() || {};
+      onlineUsersCount = Object.keys(val).length;
+      onlineUsersDiv.textContent = `Online Users: ${onlineUsersCount}`;
+    });
+  }
+
+  // Load existing messages and listen for new ones
+  function loadMessages() {
+    const messagesRef = db.ref('messages');
+    messagesRef.off();
+    messagesRef.on('child_added', snapshot => {
+      const msg = snapshot.val();
+      displayMessage(msg);
+    });
+  }
+
+  // Display a message in chat
+  function displayMessage({ username, text, timestamp }) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('message');
+    // Assign sender CSS class based on username
+    if (username === 'Babygurl') msgDiv.classList.add('sender-Babygurl');
+    else if (username === 'KuchuPrincess') msgDiv.classList.add('sender-KuchuPrincess');
+
+    msgDiv.innerHTML = `<strong>${username}</strong>: ${escapeHtml(text)}<br/><span class="timestamp">${new Date(timestamp).toLocaleString()}</span>`;
+    messagesDiv.appendChild(msgDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+
+  // Escape HTML to avoid XSS
+  function escapeHtml(text) {
+    return text.replace(/[&<>"']/g, function(m) {
+      return ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[m];
+    });
+  }
+
+  // Send a message to Firebase
+  function sendMessage(text) {
+    if (!text) return;
+    const messagesRef = db.ref('messages');
+    messagesRef.push({
+      username: currentUser.username,
+      text: text,
+      timestamp: Date.now()
+    });
+  }
+</script>
 
 </body>
 </html>
