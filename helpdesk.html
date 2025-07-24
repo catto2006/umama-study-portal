@@ -20,13 +20,13 @@
     }
 
     header {
-      background: #169116; /* soft pink */
+      background: #169116; /* green header */
       color: #fff;
       padding: 1.5rem;
       text-align: center;
       font-weight: 600;
       font-size: 1.8rem;
-      box-shadow: 0 4px 10px rgba(255, 143, 171, 0.5);
+      box-shadow: 0 4px 10px rgba(22, 145, 22, 0.5);
       letter-spacing: 1px;
     }
 
@@ -57,16 +57,16 @@
       padding: 12px 16px;
       font-size: 1rem;
       border-radius: 30px;
-      border: 2px solid #ff8fab;
+      border: 2px solid #4caf50;
       outline: none;
       transition: border-color 0.3s ease;
     }
     #access-code:focus {
-      border-color: #ff557a;
-      box-shadow: 0 0 8px #ff557aaa;
+      border-color: #2e7d32;
+      box-shadow: 0 0 8px #2e7d3299;
     }
     #login-btn {
-      background: #ff557a;
+      background: #2e7d32;
       border: none;
       color: white;
       padding: 12px 28px;
@@ -76,14 +76,14 @@
       cursor: pointer;
       transition: background 0.3s ease;
       font-weight: 600;
-      box-shadow: 0 4px 12px #ff557aaa;
+      box-shadow: 0 4px 12px #2e7d3299;
     }
     #login-btn:hover {
-      background: #e84368;
-      box-shadow: 0 6px 20px #e8436899;
+      background: #1b5e20;
+      box-shadow: 0 6px 20px #1b5e2099;
     }
     #login-error {
-      color: #ff4d6d;
+      color: #d32f2f; /* error red */
       margin-top: 12px;
       font-weight: 600;
       display: none;
@@ -106,12 +106,12 @@
     }
 
     #messages {
-      background: #fff0f3;
+      background: #e8f5e9;
       border-radius: 25px;
       padding: 20px;
       flex-grow: 1;
       overflow-y: auto;
-      box-shadow: inset 0 0 10px #ff8fab88;
+      box-shadow: inset 0 0 10px #4caf5088;
       scroll-behavior: smooth;
     }
 
@@ -130,15 +130,15 @@
 
     /* Sender Styles */
     .sender-Babygurl {
-      background: linear-gradient(135deg, #81d4fa, #fffde7);
-      color: #004d40;
+      background: linear-gradient(135deg, #a5d6a7, #e8f5e9);
+      color: #1b5e20;
       margin-left: auto;
       border-bottom-right-radius: 4px;
       text-align: right;
     }
     .sender-KuchuPrincess {
-      background: linear-gradient(135deg, #ffcc80, #ffebee);
-      color: #b71c1c;
+      background: linear-gradient(135deg, #c8e6c9, #f1f8e9);
+      color: #2e7d32;
       margin-right: auto;
       border-bottom-left-radius: 4px;
       text-align: left;
@@ -166,18 +166,18 @@
     #message-input {
       flex-grow: 1;
       border-radius: 30px;
-      border: 2px solid #ff8fab;
+      border: 2px solid #4caf50;
       padding: 14px 20px;
       font-size: 1.1rem;
       outline: none;
       transition: border-color 0.3s ease;
-      background: #fff9fb;
+      background: #f9fff9;
       color: #444;
-      box-shadow: 0 2px 8px #ff8fab55;
+      box-shadow: 0 2px 8px #4caf5055;
     }
     #message-input:focus {
-      border-color: #ff557a;
-      box-shadow: 0 0 12px #ff557aaa;
+      border-color: #2e7d32;
+      box-shadow: 0 0 12px #2e7d3299;
     }
 
     #input-area button {
@@ -189,12 +189,12 @@
       border-radius: 30px;
       cursor: pointer;
       font-weight: 700;
-      box-shadow: 0 6px 18px #ff557aaa;
+      box-shadow: 0 6px 18px #2e7d3299;
       transition: background 0.3s ease;
     }
     #input-area button:hover {
-      background: #e84368;
-      box-shadow: 0 8px 28px #e8436899;
+      background: #1b5e20;
+      box-shadow: 0 8px 28px #1b5e2099;
     }
 
     /* Scrollbar style */
@@ -202,7 +202,7 @@
       width: 10px;
     }
     #messages::-webkit-scrollbar-thumb {
-      background: #ff8fabcc;
+      background: #4caf50cc;
       border-radius: 25px;
     }
   </style>
@@ -273,111 +273,135 @@
 
     // User info after login
     let currentUser = null;
-    // Possible codes and usernames
+
+    // List of users
     const users = {
-      ayan123: { username: "Babygurl", cssClass: "sender-Babygurl" },
-      umama123: { username: "KuchuPrincess", cssClass: "sender-KuchuPrincess" },
+      Babygurl: { displayName: "Babygurl" },
+      KuchuPrincess: { displayName: "KuchuPrincess" },
     };
 
-    // Track online users count
-    let presenceRef = null;
+    // Hardcoded access codes for users
+    const accessCodes = {
+      Babygurl: "admin123", // Example code for Babygurl
+      KuchuPrincess: "admin456", // Example code for KuchuPrincess
+    };
 
-    // Hide login error by default
-    loginError.style.display = "none";
-
-    // Login button event
-    loginBtn.addEventListener("click", () => {
-      const code = accessCodeInput.value.trim();
-      if (users[code]) {
-        currentUser = users[code];
-        startChat();
+    // Show login error for 3 seconds
+    function showLoginError() {
+      loginError.style.display = "block";
+      setTimeout(() => {
         loginError.style.display = "none";
+      }, 3000);
+    }
+
+    // Login button click
+    loginBtn.addEventListener("click", () => {
+      const enteredCode = accessCodeInput.value.trim();
+      let foundUser = null;
+
+      // Check entered code against accessCodes
+      for (const user in accessCodes) {
+        if (accessCodes[user] === enteredCode) {
+          foundUser = user;
+          break;
+        }
+      }
+
+      if (foundUser) {
+        currentUser = foundUser;
+        loginSection.style.display = "none";
+        chatSection.style.display = "flex";
+        initializeChat();
       } else {
-        loginError.style.display = "block";
+        showLoginError();
       }
     });
 
-    // Start the chat UI & functionality
-    function startChat() {
-      loginSection.style.display = "none";
-      chatSection.style.display = "flex";
-      accessCodeInput.value = "";
-      messageInput.focus();
+    // Allow pressing Enter key in access code input
+    accessCodeInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        loginBtn.click();
+      }
+    });
 
-      setupPresence();
-      loadMessages();
+    // Initialize chat listeners
+    function initializeChat() {
+      // Track online users count
+      const usersRef = db.ref("helpdesk/onlineUsers");
 
-      // Submit message event
+      // Update online users count on load & change
+      usersRef.on("value", (snapshot) => {
+        const count = snapshot.val() || 0;
+        onlineUsersDiv.textContent = `Online Users: ${count}`;
+      });
+
+      // Increase online users count when user logs in
+      usersRef.transaction((count) => {
+        return (count || 0) + 1;
+      });
+
+      // Decrease online users count when user leaves page
+      window.addEventListener("beforeunload", () => {
+        usersRef.transaction((count) => {
+          return (count || 1) - 1;
+        });
+      });
+
+      // Load messages from Firebase
+      const messagesRef = db.ref("helpdesk/messages");
+
+      messagesRef.off(); // Clear old listeners if any
+
+      messagesRef.on("child_added", (data) => {
+        const messageData = data.val();
+        addMessageToChat(messageData);
+      });
+
+      // Submit new message
       chatForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        sendMessage(messageInput.value.trim());
+        const text = messageInput.value.trim();
+        if (text === "") return;
+
+        const messageObj = {
+          sender: currentUser,
+          text,
+          timestamp: Date.now(),
+        };
+
+        // Push message to Firebase
+        messagesRef.push(messageObj);
+
         messageInput.value = "";
       });
     }
 
-    // Setup presence tracking to count online users
-    function setupPresence() {
-      const userId = "user_" + Math.random().toString(36).substring(2, 9);
-      presenceRef = db.ref("presence/" + userId);
-      presenceRef.set({ username: currentUser.username, online: true });
-      presenceRef.onDisconnect().remove();
-
-      // Listen to presence changes
-      const presenceListRef = db.ref("presence");
-      presenceListRef.on("value", (snapshot) => {
-        const val = snapshot.val() || {};
-        const onlineUsersCount = Object.keys(val).length;
-        onlineUsersDiv.textContent = `Online Users: ${onlineUsersCount}`;
-      });
-    }
-
-    // Load existing messages and listen for new ones
-    function loadMessages() {
-      const messagesRef = db.ref("messages");
-      messagesRef.off();
-      messagesRef.on("child_added", (snapshot) => {
-        const msg = snapshot.val();
-        displayMessage(msg);
-      });
-    }
-
-    // Display a message in chat
-    function displayMessage({ username, text, timestamp }) {
+    // Add message to chat window
+    function addMessageToChat(message) {
       const msgDiv = document.createElement("div");
-      msgDiv.classList.add("message");
-      if (username === "Babygurl") msgDiv.classList.add("sender-Babygurl");
-      else if (username === "KuchuPrincess")
-        msgDiv.classList.add("sender-KuchuPrincess");
+      msgDiv.classList.add("message", `sender-${message.sender}`);
 
-      msgDiv.innerHTML = `<strong>${username}</strong>: ${escapeHtml(
-        text
-      )}<br/><span class="timestamp">${new Date(timestamp).toLocaleString()}</span>`;
+      // Format timestamp
+      const time = new Date(message.timestamp);
+      const timeStr = time.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      msgDiv.innerHTML = `<strong>${message.sender}:</strong> ${escapeHtml(
+        message.text
+      )} <span class="timestamp">${timeStr}</span>`;
+
       messagesDiv.appendChild(msgDiv);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // Escape HTML to avoid XSS
+    // Escape HTML to avoid injection
     function escapeHtml(text) {
-      return text.replace(/[&<>"']/g, function (m) {
-        return {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;",
-        }[m];
-      });
-    }
-
-    // Send a message to Firebase
-    function sendMessage(text) {
-      if (!text) return;
-      const messagesRef = db.ref("messages");
-      messagesRef.push({
-        username: currentUser.username,
-        text: text,
-        timestamp: Date.now(),
-      });
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
     }
   </script>
 </body>
