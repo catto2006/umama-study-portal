@@ -1,181 +1,152 @@
-/* Reset & basics */
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400&display=swap');
+
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 body {
+  font-family: 'Roboto', sans-serif;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #e0e0e0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-size: 16px;
-  line-height: 1.5;
-  overflow-x: hidden;
 }
 
 header {
-  background: rgba(20, 30, 50, 0.9);
-  padding: 1.5rem 2rem;
+  background-color: #0a192f;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  box-shadow: 0 0 15px #0ff;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  gap: 1.5rem;
+  border-bottom: 2px solid #00ffff;
 }
 
-.karachi-logo {
-  width: 70px;
-  filter: drop-shadow(0 0 4px #00fff7);
-  border-radius: 12px;
+.logo {
+  width: 60px;
+  height: auto;
+  filter: drop-shadow(0 0 5px #00ffff);
 }
 
 header h1 {
-  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
   font-size: 1.8rem;
-  color: #00fff7;
-  text-shadow: 0 0 8px #00fff7;
+  flex-grow: 1;
+}
+
+nav a {
+  color: #00ffff;
+  text-decoration: none;
+  margin-left: 1.2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+nav a:hover,
+nav a.active {
+  color: #ff6f61;
+  text-shadow: 0 0 8px #ff6f61;
 }
 
 main {
-  flex: 1;
-  max-width: 1000px;
-  margin: 3rem auto 4rem;
-  padding: 0 1rem;
-  background: rgba(10, 15, 25, 0.8);
-  border-radius: 18px;
-  box-shadow: 0 0 25px #00fff7aa;
-  backdrop-filter: blur(10px);
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #00d3ff;
-  text-shadow: 0 0 10px #00d3ff;
-  letter-spacing: 1.2px;
-}
-
-#assignments-list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-#assignments-list li {
-  background: linear-gradient(145deg, #042c54, #063a75);
-  flex: 1 1 250px;
-  min-width: 230px;
-  padding: 18px 22px;
-  border-radius: 15px;
-  cursor: pointer;
-  color: #00eaff;
-  font-weight: 600;
-  text-shadow: 0 0 5px #00eaff;
-  box-shadow: 0 0 15px #00eaff44;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#assignments-list li:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px #00eaffaa;
-}
-
-#editor-container {
-  display: none;
-  margin-top: 20px;
-  background: linear-gradient(135deg, #032c59, #065e94);
+  flex-grow: 1;
   padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 0 25px #00eaffcc;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-#assignment-title {
-  width: 100%;
-  padding: 14px 20px;
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  border: none;
-  border-radius: 14px;
-  background: #012a52;
-  color: #00eaff;
-  text-shadow: 0 0 5px #00eaff;
-  box-shadow: inset 0 0 8px #00eaff88;
-  outline: none;
-  transition: box-shadow 0.3s ease;
-}
-
-#assignment-title:focus {
+.hero {
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid #00ffff;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
   box-shadow: 0 0 20px #00ffff;
+  margin-bottom: 3rem;
 }
 
-#assignment-text {
-  width: 100%;
-  height: 320px;
-  padding: 15px 18px;
-  font-size: 1.1rem;
-  border-radius: 16px;
-  border: none;
-  background: #012a52;
-  color: #00eaff;
-  text-shadow: 0 0 5px #00eaff;
-  box-shadow: inset 0 0 10px #00eaffaa;
-  resize: vertical;
-  outline: none;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transition: box-shadow 0.3s ease;
+.hero h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #00ffff;
+  text-shadow: 0 0 12px #00ffff;
 }
 
-#assignment-text:focus {
-  box-shadow: 0 0 25px #00ffff;
-}
-
-#save-btn, #new-btn {
-  background: linear-gradient(135deg, #00eaff, #006bb3);
-  color: #001d2f;
-  border: none;
-  padding: 14px 28px;
+.hero p {
   font-size: 1.2rem;
-  border-radius: 14px;
-  cursor: pointer;
-  font-weight: 700;
-  box-shadow: 0 0 15px #00eaffcc;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  margin-right: 15px;
-  margin-top: 15px;
-  user-select: none;
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
 }
 
-#save-btn:hover, #new-btn:hover {
-  background: linear-gradient(135deg, #00ffff, #004a72);
-  box-shadow: 0 0 30px #00ffffee;
+.hero .btn {
+  padding: 1rem 2rem;
+  background: #00ffff;
+  color: #0a192f;
+  font-weight: 700;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 0 15px #00ffff;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.hero .btn:hover {
+  background: #ff6f61;
+  color: white;
+  box-shadow: 0 0 25px #ff6f61;
+}
+
+.features {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: rgba(255, 111, 97, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  flex: 1 1 250px;
+  max-width: 300px;
+  box-shadow: 0 0 15px #ff6f61;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 30px #ff6f61;
+}
+
+.feature-card h3 {
+  font-family: 'Orbitron', sans-serif;
+  color: #ff6f61;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #eee;
 }
 
 footer {
-  background: rgba(20, 30, 50, 0.9);
+  background-color: #0a192f;
   text-align: center;
-  padding: 1.5rem 0;
-  font-size: 0.95rem;
-  color: #00fff7;
-  letter-spacing: 0.8px;
-  text-shadow: 0 0 6px #00fff7;
-  box-shadow: inset 0 1px 6px #00fff7aa;
+  padding: 1rem 0;
+  border-top: 2px solid #00ffff;
+  font-size: 0.9rem;
+  color: #00ffff;
+  font-family: 'Roboto', sans-serif;
   user-select: none;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  #assignments-list {
-    flex-direction: column;
-  }
-  #assignments-list li {
-    min-width: 100%;
-  }
 }
