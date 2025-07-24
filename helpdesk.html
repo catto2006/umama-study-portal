@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Help Desk - Umama Study Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #chatContainer {
+      max-width: 700px;
+      margin: 40px auto;
+      background: rgba(0, 50, 30, 0.75);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      color: white;
+    }
+    #messages {
+      list-style: none;
+      padding: 0;
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #a0f0c0;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      background: #002211;
+    }
+    #messages li {
+      padding: 8px 10px;
+      border-bottom: 1px solid #444;
+    }
+    #chatForm input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+    #chatForm button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background-color: #a0f0c0;
+      color: #002211;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    #chatForm button:hover {
+      background-color: #88d0a0;
+    }
+    #logoutBtn {
+      margin-top: 10px;
+      background-color: #ff4c4c;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #logoutBtn:hover {
+      background-color: #e04343;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Help Desk</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="lectures.html">Lectures</a>
+      <a href="assignments.html">Assignments</a>
+      <a href="notes.html">Notes</a>
+    </nav>
+  </header>
+
+  <main>
+    <div id="chatContainer" style="display:none;">
+      <ul id="messages"></ul>
+
+      <form id="chatForm">
+        <input id="messageInput" autocomplete="off" placeholder="Type your message..." />
+        <button type="submit">Send</button>
+      </form>
+
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Umama's Study Portal | Created with ❤️</p>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Password protection before showing chat
+    const password = prompt("Enter student code:");
+    if (password !== "umama123") {
+      alert("Access Denied");
+      window.location.href = "index.html";
+    } else {
+      document.getElementById('chatContainer').style.display = 'block';
+    }
+
+    // Replace this config with your Firebase project config
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const messagesList = document.getElementById('messages');
+    const chatForm = document.getElementById('chatForm');
+    const messageInput = document.getElementById('messageInput');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Load existing messages
+    const messagesRef = db.ref('messages');
+
+    messagesRef.on('child_added', (snapshot) => {
+      const msg = snapshot.val();
+      const li = document.createElement('li');
+      li.textContent = msg.text;
+      messagesList.appendChild(li);
+      messagesList.scrollTop = messagesList.scrollHeight;
+    });
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = messageInput.value.trim();
+      if (text) {
+        messagesRef.push({ text });
+        messageInput.value = '';
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
