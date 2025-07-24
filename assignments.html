@@ -3,116 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Umama's Study Portal - Assignments</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-  
+  <title>Assignments - Umama's Study Portal</title>
   <link rel="stylesheet" href="style.css" />
-  
+  <script defer src="assignments.js"></script>
 </head>
 <body>
+  <header>
+    <img src="images/karachi-board-logo.png" alt="Karachi Board Logo" class="logo" />
+    <h1>Karachi Board Medical Coaching Center</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="lectures.html">Lectures</a>
+      <a href="assignments.html" class="active">Assignments</a>
+      <a href="notes.html">Notes</a>
+      <a href="helpdesk.html">Help Desk</a>
+    </nav>
+  </header>
 
-<header>
-  <img
-    src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Board_of_Intermediate_and_Secondary_Education_Karachi_logo.png/220px-Board_of_Intermediate_and_Secondary_Education_Karachi_logo.png"
-    alt="Karachi Board Logo"
-    class="karachi-logo"
-  />
-  <h1>Official Karachi Board Medical Coaching Portal</h1>
-</header>
+  <main>
+    <h2>Your Assignments</h2>
+    <div id="assignments-list" class="assignments-list">
+      <!-- Assignments will appear here -->
+    </div>
 
-<main>
-  <h2>Assignments</h2>
-  <button id="new-btn">+ New Assignment</button>
+    <section class="new-assignment-section">
+      <h3>Create New Assignment</h3>
+      <input type="text" id="assignment-title" placeholder="Assignment Title" />
+      <textarea id="assignment-content" rows="6" placeholder="Write your assignment here..."></textarea>
+      <button id="add-assignment-btn">Add Assignment</button>
+    </section>
+  </main>
 
-  <ul id="assignments-list"></ul>
-
-  <div id="editor-container">
-    <input type="text" id="assignment-title" placeholder="Assignment Title" />
-    <textarea id="assignment-text" placeholder="Write your assignment here..."></textarea>
-    <br />
-    <button id="save-btn">Save Assignment</button>
-  </div>
-</main>
-
-<footer>
-  <p>© 2025 Umama's Study Portal | Coaching Center. All rights reserved.</p>
-</footer>
-
-<script>
-  const STORAGE_KEY = 'umama_assignments';
-  const assignmentsList = document.getElementById('assignments-list');
-  const editorContainer = document.getElementById('editor-container');
-  const assignmentTitleInput = document.getElementById('assignment-title');
-  const assignmentTextArea = document.getElementById('assignment-text');
-  const saveBtn = document.getElementById('save-btn');
-  const newBtn = document.getElementById('new-btn');
-
-  let assignments = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  let currentEditIndex = -1;
-
-  function renderAssignments() {
-    assignmentsList.innerHTML = '';
-    if(assignments.length === 0){
-      assignmentsList.innerHTML = '<li style="color:#777; font-style: italic;">No assignments yet. Click "New Assignment" to add one.</li>';
-      return;
-    }
-    assignments.forEach((assignment, index) => {
-      const li = document.createElement('li');
-      li.textContent = assignment.title || 'Untitled Assignment';
-      li.addEventListener('click', () => editAssignment(index));
-      assignmentsList.appendChild(li);
-    });
-  }
-
-  function editAssignment(index) {
-    currentEditIndex = index;
-    assignmentTitleInput.value = assignments[index].title;
-    assignmentTextArea.value = assignments[index].content;
-    editorContainer.style.display = 'block';
-    assignmentTitleInput.focus();
-  }
-
-  function saveAssignment() {
-    const title = assignmentTitleInput.value.trim();
-    const content = assignmentTextArea.value.trim();
-
-    if(!title){
-      alert('Please enter a title for the assignment.');
-      assignmentTitleInput.focus();
-      return;
-    }
-
-    if(currentEditIndex === -1){
-      assignments.push({ title, content });
-    } else {
-      assignments[currentEditIndex] = { title, content };
-    }
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(assignments));
-    renderAssignments();
-    clearEditor();
-    alert('Assignment saved successfully!');
-  }
-
-  function clearEditor() {
-    assignmentTitleInput.value = '';
-    assignmentTextArea.value = '';
-    editorContainer.style.display = 'none';
-    currentEditIndex = -1;
-  }
-
-  newBtn.addEventListener('click', () => {
-    clearEditor();
-    editorContainer.style.display = 'block';
-    assignmentTitleInput.focus();
-  });
-
-  saveBtn.addEventListener('click', saveAssignment);
-
-  renderAssignments();
-</script>
-
+  <footer>
+    <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
+  </footer>
 </body>
 </html>
