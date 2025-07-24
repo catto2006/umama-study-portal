@@ -1,52 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Karachi Board Medical Coaching Center</title>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Karachi Board Study Portal</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 </head>
 <body>
-<header>
-  <img src="images/karachi_board_logo.png" class="board-logo" alt="Karachi Board Logo">
-  <h1>Karachi Board Medical Coaching Center</h1>
+  <header>Karachi Board Coaching Center</header>
   <nav>
-    <a href="index.html" class="active">Home</a>
-    <a href="lectures.html">Lectures</a>
-    <a href="assignments.html">Assignments</a>
-    <a href="notes.html">Notes</a>
-    <a href="helpdesk.html">Help Desk</a>
+    <button data-tab="home" class="active">Home</button>
+    <button data-tab="notes">Notes</button>
+    <button data-tab="assignments">Assignments</button>
+    <button data-tab="quiz">Quiz Center</button>
+    <button data-tab="lectures">Lectures</button>
+    <button data-tab="helpdesk">Help Desk</button>
   </nav>
-</header>
 
-<main class="container">
-  <section class="hero">
-    <h2>Your Ultimate Medical Study Hub</h2>
-    <p>Dive into daily lectures, past papers, assignments, and live tutor support—all curated for Karachi Board’s medical stream.</p>
-    <a href="lectures.html" class="btn">Today's Lectures</a>
-  </section>
+  <main>
+    <!-- Home -->
+    <section id="home-section" class="active">
+      <h2>Welcome to Your Ultimate Study Hub</h2>
+      <p>This portal offers notes, assignments, quizzes, lectures, and live chat.</p>
+    </section>
 
-  <section class="features">
-    <div class="feature-card">
-      <h3>📚 Daily Lectures</h3>
-      <p>Two new videos every subject—Zoology, Botany, Chemistry, Physics—and updated daily.</p>
-    </div>
-    <div class="feature-card">
-      <h3>📝 Assignments</h3>
-      <p>Coach-provided tasks pre-loaded + ability to add your own.</p>
-    </div>
-    <div class="feature-card">
-      <h3>📄 Notes & Past Papers</h3>
-      <p>Downloadable model papers, solved questions, and topic overviews.</p>
-    </div>
-    <div class="feature-card">
-      <h3>💬 Help Desk</h3>
-      <p>Password-secured live chat only available for admins.</p>
-    </div>
-  </section>
-</main>
+    <!-- Notes -->
+    <section id="notes-section">
+      <h2>Biology & Chemistry Notes (Grade 12)</h2>
+      <ul>
+        <li><a href="https://www.zahidenotes.com/download/BioPart2.pdf" target="_blank">Biology Chapter-wise PDF Notes</a></li>
+        <li><a href="https://onlinesabaq.com/Bio-Cha15-Homeostasis.pdf" target="_blank">Chapter 15: Homeostasis Notes</a></li>
+        <li><a href="https://www.zahidenotes.com/download/ChemPart2.pdf" target="_blank">Chemistry PDF Notes</a></li>
+      </ul>
+    </section>
 
-<footer>
-  <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
-</footer>
+    <!-- Assignments -->
+    <section id="assignments-section">
+      <h2>Solved MCQs & Past Papers</h2>
+      <ul>
+        <li><a href="https://www.perfect24u.com/BioPart2-MCQs.pdf" target="_blank">Biology MCQs & Q&A PDF</a></li>
+        <li><a href="https://educationinkarachi.net/pastpapers/chemistry.pdf" target="_blank">Chemistry Karachi Board Past Paper</a></li>
+      </ul>
+    </section>
+
+    <!-- Quiz Center -->
+    <section id="quiz-section">
+      <h2>Pop Quiz 🎓</h2>
+      <div id="quiz-container"></div>
+      <button id="new-quiz-btn">Next Quiz</button>
+      <div id="quiz-result"></div>
+    </section>
+
+    <!-- Lectures -->
+    <section id="lectures-section">
+      <h2>Lectures (Grade 12 Medical)</h2>
+      <h3>Biology</h3>
+      <iframe src="https://www.youtube.com/embed/UoG62E6qKHo" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/n0P6G3n1wOY" allowfullscreen></iframe>
+
+      <h3>Chemistry</h3>
+      <iframe src="https://www.youtube.com/embed/DGfZPoRJF3U" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/p8kpGzWbF3Q" allowfullscreen></iframe>
+
+      <h3>Physics</h3>
+      <iframe src="https://www.youtube.com/embed/tRrwNCkzYSE" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/JyBBHTY_TxQ" allowfullscreen></iframe>
+    </section>
+
+    <!-- Help Desk -->
+    <section id="helpdesk-section">
+      <!-- Paste your complete Help Desk chat HTML + JS code here -->
+      <!-- Ensure it matches your working version -->
+      <!-- Use your existing helpdesk file content -->
+    </section>
+  </main>
+
+  <script>
+    // NAVIGATION
+    document.querySelectorAll('nav button').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('main section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(btn.dataset.tab + '-section').classList.add('active');
+      };
+    });
+
+    // QUIZ LOGIC
+    const quizBank = [
+      {
+        subject: "Biology",
+        type: "mcq",
+        question: "Syphilis is caused by ___?",
+        options: ["Bacilli","Trichomonas","Neisseria gonorrhea","Treponema pallidum"],
+        answer: "Treponema pallidum"
+      },
+      {
+        subject: "Chemistry",
+        type: "mcq",
+        question: "If 12 moles KClO₃ decompose, moles of O₂ created?",
+        options:["12","15","18","21"],
+        answer:"18"
+      },
+      {
+        subject: "Physics",
+        type: "mcq",
+        question: "Unit of electric current?",
+        options:["Volt","Ohm","Ampere","Watt"],
+        answer:"Ampere"
+      },
+      {
+        subject: "Biology",
+        type: "mcq",
+        question: "RNA polymerase is used in ___?",
+        options:["DNA replication","Protein synthesis","Transcription","Translation"],
+        answer:"Transcription"
+      },
+      {
+        subject: "Chemistry",
+        type: "mcq",
+        question: "pH of neutral water at 25°C?",
+        options:["6","7","8","9"],
+        answer:"7"
+      },
+      // Add more questions here...
+    ];
+
+    function shuffle(a) {
+      return a.sort(() => 0.5 - Math.random());
+    }
+
+    function loadQuiz() {
+      const quiz = shuffle(quizBank).slice(0,5);
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = quiz.map((q,i) => `
+        <div class="q">
+          <p><strong>${i+1}. [${q.subject}]</strong> ${q.question}</p>
+          ${q.options.map(o => `<label><input type="radio" name="q${i}" value="${o}"> ${o}</label>`).join('')}
+        </div>`).join('');
+      document.getElementById('quiz-result').textContent = '';
+    }
+
+    document.getElementById('new-quiz-btn').onclick = loadQuiz;
+
+    document.getElementById('quiz-section').addEventListener('change', () => {
+      let score = 0;
+      for (let i = 0; i < 5; i++) {
+        const sel = document.querySelector(`input[name="q${i}"]:checked`);
+        if (sel && sel.value === quizBank[i].answer) score++;
+      }
+      document.getElementById('quiz-result').textContent = `Score: ${score}/5`;
+    });
+
+    // INIT
+    loadQuiz();
+  </script>
+
+  <!-- Include your helpdesk script file below -->
+  <script src="helpdesk.js"></script>
+
 </body>
 </html>
