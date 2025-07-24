@@ -20,26 +20,29 @@
     }
 
     header {
-      background: #169116; /* green header */
+      background: #169116;
       color: #fff;
       padding: 1.5rem;
       text-align: center;
       font-weight: 600;
       font-size: 1.8rem;
-      box-shadow: 0 4px 10px rgba(22, 145, 22, 0.5);
+      box-shadow: 0 4px 10px rgba(22, 145, 22, 0.6);
       letter-spacing: 1px;
+      user-select: none;
     }
 
     main {
       flex-grow: 1;
       max-width: 700px;
-      margin: 2rem auto;
+      margin: 2rem auto 3rem auto;
       background: #fff;
       border-radius: 25px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       padding: 2rem;
+      min-height: 600px;
+      position: relative;
     }
 
     /* Login Section */
@@ -57,16 +60,16 @@
       padding: 12px 16px;
       font-size: 1rem;
       border-radius: 30px;
-      border: 2px solid #4caf50;
+      border: 2px solid #169116;
       outline: none;
       transition: border-color 0.3s ease;
     }
     #access-code:focus {
-      border-color: #2e7d32;
-      box-shadow: 0 0 8px #2e7d3299;
+      border-color: #0d7d0d;
+      box-shadow: 0 0 8px #0d7d0d88;
     }
     #login-btn {
-      background: #2e7d32;
+      background: #169116;
       border: none;
       color: white;
       padding: 12px 28px;
@@ -76,14 +79,14 @@
       cursor: pointer;
       transition: background 0.3s ease;
       font-weight: 600;
-      box-shadow: 0 4px 12px #2e7d3299;
+      box-shadow: 0 4px 12px #0d7d0d88;
     }
     #login-btn:hover {
-      background: #1b5e20;
-      box-shadow: 0 6px 20px #1b5e2099;
+      background: #0d7d0d;
+      box-shadow: 0 6px 20px #0d7d0d99;
     }
     #login-error {
-      color: #d32f2f; /* error red */
+      color: #b71c1c;
       margin-top: 12px;
       font-weight: 600;
       display: none;
@@ -94,6 +97,7 @@
       display: none;
       flex-direction: column;
       height: 500px;
+      position: relative;
     }
 
     #online-users {
@@ -103,16 +107,18 @@
       text-align: right;
       margin-bottom: 15px;
       letter-spacing: 0.8px;
+      user-select: none;
     }
 
     #messages {
-      background: #e8f5e9;
+      background: #e6f4e6;
       border-radius: 25px;
       padding: 20px;
       flex-grow: 1;
       overflow-y: auto;
-      box-shadow: inset 0 0 10px #4caf5088;
+      box-shadow: inset 0 0 10px #16911655;
       scroll-behavior: smooth;
+      user-select: text;
     }
 
     .message {
@@ -126,22 +132,25 @@
       box-shadow: 0 2px 10px rgb(0 0 0 / 0.08);
       word-wrap: break-word;
       transition: transform 0.3s ease;
+      color: black;
     }
 
     /* Sender Styles */
     .sender-Babygurl {
-      background: linear-gradient(135deg, #a5d6a7, #e8f5e9);
-      color: #1b5e20;
+      background: linear-gradient(135deg, #2196f3, #90caf9);
+      color: #003366;
       margin-left: auto;
       border-bottom-right-radius: 4px;
       text-align: right;
+      box-shadow: 0 4px 8px #0d47a1aa;
     }
     .sender-KuchuPrincess {
-      background: linear-gradient(135deg, #c8e6c9, #f1f8e9);
-      color: #2e7d32;
+      background: linear-gradient(135deg, #ffeb3b, #ff7043);
+      color: #5d2c00;
       margin-right: auto;
       border-bottom-left-radius: 4px;
       text-align: left;
+      box-shadow: 0 4px 8px #bf360caa;
     }
 
     .message strong {
@@ -152,8 +161,10 @@
       display: block;
       font-size: 0.75rem;
       margin-top: 6px;
-      opacity: 0.6;
+      opacity: 0.7;
       font-style: italic;
+      color: #333;
+      user-select: none;
     }
 
     /* Input area */
@@ -166,18 +177,18 @@
     #message-input {
       flex-grow: 1;
       border-radius: 30px;
-      border: 2px solid #4caf50;
+      border: 2px solid #169116;
       padding: 14px 20px;
       font-size: 1.1rem;
       outline: none;
       transition: border-color 0.3s ease;
-      background: #f9fff9;
-      color: #444;
-      box-shadow: 0 2px 8px #4caf5055;
+      background: #e8f5e9;
+      color: #111;
+      box-shadow: 0 2px 8px #16911688;
     }
     #message-input:focus {
-      border-color: #2e7d32;
-      box-shadow: 0 0 12px #2e7d3299;
+      border-color: #0d7d0d;
+      box-shadow: 0 0 12px #0d7d0d88;
     }
 
     #input-area button {
@@ -189,12 +200,13 @@
       border-radius: 30px;
       cursor: pointer;
       font-weight: 700;
-      box-shadow: 0 6px 18px #2e7d3299;
+      box-shadow: 0 6px 18px #0d7d0d88;
       transition: background 0.3s ease;
+      user-select: none;
     }
     #input-area button:hover {
-      background: #1b5e20;
-      box-shadow: 0 8px 28px #1b5e2099;
+      background: #0d7d0d;
+      box-shadow: 0 8px 28px #0d7d0d99;
     }
 
     /* Scrollbar style */
@@ -202,9 +214,34 @@
       width: 10px;
     }
     #messages::-webkit-scrollbar-thumb {
-      background: #4caf50cc;
+      background: #169116cc;
       border-radius: 25px;
     }
+
+    /* Emergency Surge Button */
+    #emergency-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #b71c1c;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px #7f0000cc;
+      transition: background 0.3s ease;
+      user-select: none;
+      display: none; /* Only visible when chat active */
+      z-index: 10;
+    }
+    #emergency-btn:hover {
+      background: #7f0000;
+      box-shadow: 0 6px 20px #7f000099;
+    }
+
   </style>
 </head>
 <body>
@@ -224,6 +261,7 @@
     </section>
 
     <section id="chat-section">
+      <button id="emergency-btn" title="Emergency Surge: Go to Lectures">Emergency Surge</button>
       <div id="online-users">Online Users: 0</div>
       <div id="messages"></div>
 
@@ -231,178 +269,3 @@
         <div id="input-area">
           <input
             type="text"
-            id="message-input"
-            placeholder="Type your message here..."
-            autocomplete="off"
-            required
-          />
-          <button type="submit">Send</button>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-  <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
-      authDomain: "umama-study-portal.firebaseapp.com",
-      projectId: "umama-study-portal",
-      storageBucket: "umama-study-portal.firebasestorage.app",
-      messagingSenderId: "438854993441",
-      appId: "1:438854993441:web:bbe2003382a6bfefbcc560",
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    // DOM elements
-    const loginSection = document.getElementById("login-section");
-    const chatSection = document.getElementById("chat-section");
-    const loginBtn = document.getElementById("login-btn");
-    const accessCodeInput = document.getElementById("access-code");
-    const loginError = document.getElementById("login-error");
-    const messagesDiv = document.getElementById("messages");
-    const chatForm = document.getElementById("chat-form");
-    const messageInput = document.getElementById("message-input");
-    const onlineUsersDiv = document.getElementById("online-users");
-
-    // User info after login
-    let currentUser = null;
-
-    // List of users
-    const users = {
-      Babygurl: { displayName: "Babygurl" },
-      KuchuPrincess: { displayName: "KuchuPrincess" },
-    };
-
-    // Hardcoded access codes for users
-    const accessCodes = {
-      Babygurl: "admin123", // Example code for Babygurl
-      KuchuPrincess: "admin456", // Example code for KuchuPrincess
-    };
-
-    // Show login error for 3 seconds
-    function showLoginError() {
-      loginError.style.display = "block";
-      setTimeout(() => {
-        loginError.style.display = "none";
-      }, 3000);
-    }
-
-    // Login button click
-    loginBtn.addEventListener("click", () => {
-      const enteredCode = accessCodeInput.value.trim();
-      let foundUser = null;
-
-      // Check entered code against accessCodes
-      for (const user in accessCodes) {
-        if (accessCodes[user] === enteredCode) {
-          foundUser = user;
-          break;
-        }
-      }
-
-      if (foundUser) {
-        currentUser = foundUser;
-        loginSection.style.display = "none";
-        chatSection.style.display = "flex";
-        initializeChat();
-      } else {
-        showLoginError();
-      }
-    });
-
-    // Allow pressing Enter key in access code input
-    accessCodeInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        loginBtn.click();
-      }
-    });
-
-    // Initialize chat listeners
-    function initializeChat() {
-      // Track online users count
-      const usersRef = db.ref("helpdesk/onlineUsers");
-
-      // Update online users count on load & change
-      usersRef.on("value", (snapshot) => {
-        const count = snapshot.val() || 0;
-        onlineUsersDiv.textContent = `Online Users: ${count}`;
-      });
-
-      // Increase online users count when user logs in
-      usersRef.transaction((count) => {
-        return (count || 0) + 1;
-      });
-
-      // Decrease online users count when user leaves page
-      window.addEventListener("beforeunload", () => {
-        usersRef.transaction((count) => {
-          return (count || 1) - 1;
-        });
-      });
-
-      // Load messages from Firebase
-      const messagesRef = db.ref("helpdesk/messages");
-
-      messagesRef.off(); // Clear old listeners if any
-
-      messagesRef.on("child_added", (data) => {
-        const messageData = data.val();
-        addMessageToChat(messageData);
-      });
-
-      // Submit new message
-      chatForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const text = messageInput.value.trim();
-        if (text === "") return;
-
-        const messageObj = {
-          sender: currentUser,
-          text,
-          timestamp: Date.now(),
-        };
-
-        // Push message to Firebase
-        messagesRef.push(messageObj);
-
-        messageInput.value = "";
-      });
-    }
-
-    // Add message to chat window
-    function addMessageToChat(message) {
-      const msgDiv = document.createElement("div");
-      msgDiv.classList.add("message", `sender-${message.sender}`);
-
-      // Format timestamp
-      const time = new Date(message.timestamp);
-      const timeStr = time.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-
-      msgDiv.innerHTML = `<strong>${message.sender}:</strong> ${escapeHtml(
-        message.text
-      )} <span class="timestamp">${timeStr}</span>`;
-
-      messagesDiv.appendChild(msgDiv);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    // Escape HTML to avoid injection
-    function escapeHtml(text) {
-      const div = document.createElement("div");
-      div.textContent = text;
-      return div.innerHTML;
-    }
-  </script>
-</body>
-</html>
