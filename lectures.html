@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lectures – Karachi Board Medical Coaching Center</title>
-  <link rel="stylesheet" href="style.css" />
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lectures – KB Medical Coaching Center</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header>
-  <img src="images/karachi_board_logo.png" class="board-logo" alt="Karachi Board Logo" />
-  <h1>Karachi Board Medical Coaching Center</h1>
+  <img src="images/karachi_board_logo.png" class="board-logo" alt="Logo">
+  <h1>KB Medical Coaching Center</h1>
   <nav>
     <a href="index.html">Home</a>
     <a href="lectures.html" class="active">Lectures</a>
@@ -22,39 +19,32 @@
 
 <main class="container">
   <h2>Lectures for <span id="today-date"></span></h2>
-
   <section class="video-list">
-    <article>
-      <h3>Zoology</h3>
-      <iframe width="100%" height="200" src="https://www.youtube.com/live/KCDN1AbO73I?si=E5UNRqyRuclrDN4c" allowfullscreen></iframe>
-      <iframe width="100%" height="200" src="https://www.youtube.com/live/VTkZeZwNqdw?si=zFqNk88Zm_y_WO_B" allowfullscreen></iframe>
+    <article><h3>Zoology</h3>
+      <iframe width="100%" height="200" src="https://www.youtube.com/embed/B0xq8El2ScY"></iframe>
+      <iframe width="100%" height="200" src="https://www.youtube.com/embed/3g4u7z6Pg1Q"></iframe>
     </article>
-    <article>
-      <h3>Botany</h3>
-      <iframe width="100%" height="200" src="https://www.youtube.com/live/HSiTrJ1_wfs?si=LV45y0swPB5Y0_AB" allowfullscreen></iframe>
-      <iframe width="100%" height="200" src="https://youtu.be/j2m4hkOJR2M?si=pbpTzXgdOjzQZWem" allowfullscreen></iframe>
+    <article><h3>Botany</h3>
+      <iframe src="https://www.youtube.com/embed/AGfV7NHKp2g" width="100%" height="200"></iframe>
+      <iframe src="https://www.youtube.com/embed/8p2I3fYTZhM" width="100%" height="200"></iframe>
     </article>
-    <article>
-      <h3>Chemistry</h3>
-      <iframe width="100%" height="200" src="https://youtu.be/fv0gRU99c04?si=tKDH7pizGRETjUkA" allowfullscreen></iframe>
-      <iframe width="100%" height="200" src="https://youtu.be/FNndZ3weUCc?si=l9HVt7FpHoMCZJsI" allowfullscreen></iframe>
+    <article><h3>Chemistry</h3>
+      <iframe src="https://www.youtube.com/embed/wZgZG9qPBRk" width="100%" height="200"></iframe>
+      <iframe src="https://www.youtube.com/embed/1FZGMtRr9Zg" width="100%" height="200"></iframe>
     </article>
-    <article>
-      <h3>Physics</h3>
-      <iframe width="100%" height="200" src="https://www.youtube.com/live/I-BtCbi-q9I?si=_hw6g9c8qDC9dJZO" allowfullscreen></iframe>
-      <iframe width="100%" height="200" src="https://www.youtube.com/live/wfgzObdL93g?si=Myx4fTJlGuzDnQ20" allowfullscreen></iframe>
+    <article><h3>Physics</h3>
+      <iframe src="https://www.youtube.com/embed/WCHi4yYVdQg" width="100%" height="200"></iframe>
+      <iframe src="https://www.youtube.com/embed/zWZTTrIu0rI" width="100%" height="200"></iframe>
     </article>
   </section>
 </main>
 
-<footer>
-  <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
-</footer>
+<footer><p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p></footer>
 
 <script>
-  document.getElementById('today-date').textContent = 
-    new Date().toLocaleDateString(undefined, { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  document.getElementById('today-date').textContent = new Date().toLocaleDateString(undefined,{
+    weekday:'long', year:'numeric', month:'long', day:'numeric'
+  });
 </script>
-
 </body>
 </html>
