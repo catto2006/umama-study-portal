@@ -3,229 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Help Desk - Karachi Board Medical Coaching</title>
+  <title>Help Desk - Umama's Study Portal</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 0;
-    }
-
-    #loginScreen, #chatContainer {
-      display: none;
-      max-width: 600px;
-      margin: 100px auto;
-      padding: 30px;
-      background: white;
-      box-shadow: 0 0 10px #aaa;
-      border-radius: 10px;
-    }
-
-    #loginScreen input[type="password"],
-    input[type="text"] {
-      padding: 10px;
-      width: 80%;
-      margin-right: 10px;
-      color: #000;
-      background: #fff;
-      border: 1px solid #ccc;
-    }
-
-    #loginScreen button,
-    button {
-      padding: 10px 14px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    #onlineCount {
-      font-size: 14px;
-      margin-bottom: 10px;
-      color: green;
-    }
-
-    #messages {
-      list-style: none;
-      padding: 0;
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ddd;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      background-color: #fff;
-    }
-
-    #messages li {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-      font-size: 15px;
-      color: #000;
-      background-color: #f9f9f9;
-      border-radius: 8px;
-      margin: 6px 0;
-    }
-
-    .babygurl {
-      background: linear-gradient(135deg, #a2c4ff, #007bff);
-      color: white;
-    }
-
-    .kuchu {
-      background: linear-gradient(135deg, #ffdd66, #ff7aa2);
-      color: white;
-    }
-
-    form {
-      display: flex;
-      gap: 8px;
-    }
-
-    #logout {
-      float: right;
-      font-size: 12px;
-      margin-top: -28px;
-    }
-
-    #loginError {
-      color: red;
-      display: none;
-    }
-  </style>
+  <script defer src="helpdesk.js"></script>
 </head>
 <body>
+  <header>
+    <img src="images/karachi-board-logo.png" alt="Karachi Board Logo" class="logo" />
+    <h1>Karachi Board Medical Coaching Center</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="lectures.html">Lectures</a>
+      <a href="assignments.html">Assignments</a>
+      <a href="notes.html">Notes</a>
+      <a href="helpdesk.html" class="active">Help Desk</a>
+    </nav>
+  </header>
 
-  <!-- Login Gate -->
-  <div id="loginScreen">
-    <h2>Admins Only</h2>
-    <p>Please enter your access code to continue.</p>
-    <input type="password" id="accessCode" placeholder="Enter Code..." />
-    <button onclick="checkAccess()">Enter</button>
-    <p id="loginError">Incorrect code. Try again.</p>
-  </div>
+  <main>
+    <section class="login-section" id="login-section">
+      <h2>Enter Access Code</h2>
+      <input type="password" id="access-code" placeholder="Enter code" autocomplete="off" />
+      <button id="login-btn">Login</button>
+      <p id="login-error" style="color: #ff6f61; margin-top: 10px;"></p>
+    </section>
 
-  <!-- Chat Interface -->
-  <div id="chatContainer">
-    <h2>Help Desk Chat</h2>
-    <p id="onlineCount">Online Users: 0</p>
-    <button id="logout">Logout</button>
-    <ul id="messages"></ul>
-    <form id="chatForm">
-      <input type="text" id="messageInput" placeholder="Type your message..." required />
-      <button type="submit">Send</button>
-    </form>
-  </div>
+    <section class="chat-section hidden" id="chat-section">
+      <h2>Help Desk Chat</h2>
+      <div id="chat-window" class="chat-window"></div>
+      <form id="chat-form">
+        <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off" required />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-  <script>
-    // ✅ Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
-      authDomain: "umama-study-portal.firebaseapp.com",
-      projectId: "umama-study-portal",
-      storageBucket: "umama-study-portal.firebasestorage.app",
-      messagingSenderId: "438854993441",
-      appId: "1:438854993441:web:bbe2003382a6bfefbcc560"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    let senderName = "";
-
-    const loginScreen = document.getElementById("loginScreen");
-    const chatContainer = document.getElementById("chatContainer");
-    const errorMsg = document.getElementById("loginError");
-
-    if (localStorage.getItem("chatAccess") === "true") {
-      senderName = localStorage.getItem("senderName");
-      loginScreen.style.display = "none";
-      chatContainer.style.display = "block";
-      startChat();
-    } else {
-      loginScreen.style.display = "block";
-    }
-
-    function checkAccess() {
-      const pass = document.getElementById("accessCode").value.trim();
-      if (pass === "ayan123") {
-        senderName = "Babygurl";
-      } else if (pass === "umama123") {
-        senderName = "Kuchu Princess";
-      } else {
-        errorMsg.style.display = "block";
-        return;
-      }
-
-      localStorage.setItem("chatAccess", "true");
-      localStorage.setItem("senderName", senderName);
-      loginScreen.style.display = "none";
-      chatContainer.style.display = "block";
-      startChat();
-    }
-
-    document.getElementById('logout').addEventListener('click', () => {
-      localStorage.removeItem('chatAccess');
-      localStorage.removeItem('senderName');
-      location.reload();
-    });
-
-    function startChat() {
-      const messagesRef = db.ref('messages');
-      const messagesList = document.getElementById('messages');
-      const chatForm = document.getElementById('chatForm');
-      const input = document.getElementById('messageInput');
-
-      chatForm.addEventListener('submit', e => {
-        e.preventDefault();
-        const text = input.value.trim();
-        if (text) {
-          messagesRef.push({
-            text: text,
-            sender: senderName,
-            timestamp: Date.now()
-          });
-          input.value = '';
-        }
-      });
-
-      messagesRef.on('child_added', snapshot => {
-        const msg = snapshot.val();
-        const time = new Date(msg.timestamp).toLocaleString();
-        const li = document.createElement('li');
-        li.className = msg.sender === "Babygurl" ? "babygurl" :
-                       msg.sender === "Kuchu Princess" ? "kuchu" : "";
-        li.textContent = `[${time}] ${msg.sender || "Anonymous"}: ${msg.text}`;
-        messagesList.appendChild(li);
-        messagesList.scrollTop = messagesList.scrollHeight;
-      });
-
-      // Real-time Online Users
-      const onlineRef = db.ref('.info/connected');
-      const usersRef = db.ref('onlineUsers');
-
-      onlineRef.on('value', snap => {
-        if (snap.val() === true) {
-          const conn = usersRef.push(true);
-          conn.onDisconnect().remove();
-        }
-      });
-
-      usersRef.on('value', snap => {
-        document.getElementById('onlineCount').textContent =
-          `Online Users: ${snap.numChildren()}`;
-      });
-    }
-  </script>
+  <footer>
+    <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
+  </footer>
 </body>
 </html>
