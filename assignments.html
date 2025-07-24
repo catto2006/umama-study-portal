@@ -2,45 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Assignments - Umama's Study Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assignments – Karachi Board Medical Coaching Center</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="assignments.js"></script>
 </head>
 <body>
-  <header>
-    <img src="images/karachi_board_logo.png" alt="Karachi Board Logo" class="board-logo" />
-    <h1>Karachi Board Medical Coaching Center</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="lectures.html">Lectures</a>
-      <a href="assignments.html" class="active">Assignments</a>
-      <a href="notes.html">Notes</a>
-      <a href="helpdesk.html">Help Desk</a>
-    </nav>
-  </header>
 
-  <main class="container">
-    <div class="assignments-header">
-      <h2>Your Assignments</h2>
-    </div>
+<header>
+  <img src="images/karachi_board_logo.png" class="board-logo" alt="Karachi Board Logo" />
+  <h1>Karachi Board Medical Coaching Center</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="lectures.html">Lectures</a>
+    <a href="assignments.html" class="active">Assignments</a>
+    <a href="notes.html">Notes</a>
+    <a href="helpdesk.html">Help Desk</a>
+  </nav>
+</header>
 
-    <ul id="assignments-list" class="assignment-list"></ul>
+<main class="container">
+  <h2>Your Assignments</h2>
 
-    <div class="assignment-form">
-      <label for="assignment-title">Assignment Title</label>
-      <input type="text" id="assignment-title" placeholder="Enter title..." />
+  <ul class="assignment-history" id="history-list">
+    <li><h4>Zoology Worksheet 1</h4><small>Due: July 28, 2025</small></li>
+    <li><h4>Botany Essay</h4><small>Due: July 30, 2025</small></li>
+    <li><h4>Physics MCQ Sheet</h4><small>Due: August 1, 2025</small></li>
+  </ul>
 
-      <label for="assignment-content">Content</label>
-      <textarea id="assignment-content" placeholder="Write your assignment here..."></textarea>
+  <ul id="assignments-list" class="assignment-list"></ul>
 
-      <button id="add-assignment-btn">Add Assignment</button>
-    </div>
-  </main>
+  <div class="assignment-form">
+    <h3>Add New Assignment</h3>
+    <form id="assignment-form">
+      <label>Title:</label><br />
+      <input type="text" id="title" required /><br /><br />
+      <label>Details:</label><br />
+      <textarea id="description" rows="4" required></textarea><br /><br />
+      <label>Due Date:</label><br />
+      <input type="date" id="due" required /><br /><br />
+      <button type="submit" class="btn">Add Assignment</button>
+    </form>
+  </div>
+</main>
 
-  <footer>
-    <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
-  </footer>
+<footer>
+  <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
