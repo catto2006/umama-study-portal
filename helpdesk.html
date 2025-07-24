@@ -23,18 +23,27 @@
       border-radius: 10px;
     }
 
-    #loginScreen input[type="password"] {
+    #loginScreen input[type="password"],
+    input[type="text"] {
       padding: 10px;
       width: 80%;
       margin-right: 10px;
+      color: #000;
+      background: #fff;
+      border: 1px solid #ccc;
     }
 
-    #loginScreen button {
-      padding: 10px 15px;
+    #loginScreen button,
+    button {
+      padding: 10px 14px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
     }
 
-    #chatContainer {
-      display: none;
+    button:hover {
+      background-color: #0056b3;
     }
 
     #onlineCount {
@@ -51,12 +60,27 @@
       border: 1px solid #ddd;
       margin-bottom: 15px;
       border-radius: 5px;
+      background-color: #fff;
     }
 
     #messages li {
-      padding: 6px 10px;
-      border-bottom: 1px solid #eee;
-      font-size: 14px;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 15px;
+      color: #000;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      margin: 6px 0;
+    }
+
+    .babygurl {
+      background: linear-gradient(135deg, #a2c4ff, #007bff);
+      color: white;
+    }
+
+    .kuchu {
+      background: linear-gradient(135deg, #ffdd66, #ff7aa2);
+      color: white;
     }
 
     form {
@@ -64,20 +88,15 @@
       gap: 8px;
     }
 
-    input[type="text"] {
-      flex: 1;
-      padding: 10px;
-      font-size: 14px;
-    }
-
-    button {
-      padding: 10px 14px;
-    }
-
     #logout {
       float: right;
       font-size: 12px;
       margin-top: -28px;
+    }
+
+    #loginError {
+      color: red;
+      display: none;
     }
   </style>
 </head>
@@ -86,13 +105,13 @@
   <!-- Login Gate -->
   <div id="loginScreen">
     <h2>Admins Only</h2>
-    <p>Please enter the access code to continue.</p>
+    <p>Please enter your access code to continue.</p>
     <input type="password" id="accessCode" placeholder="Enter Code..." />
     <button onclick="checkAccess()">Enter</button>
-    <p id="loginError" style="color:red; display:none;">Incorrect code. Try again.</p>
+    <p id="loginError">Incorrect code. Try again.</p>
   </div>
 
-  <!-- Chat Interface (hidden until login) -->
+  <!-- Chat Interface -->
   <div id="chatContainer">
     <h2>Help Desk Chat</h2>
     <p id="onlineCount">Online Users: 0</p>
@@ -109,7 +128,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
-    // ✅ Firebase Config (Yours)
+    // ✅ Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
       authDomain: "umama-study-portal.firebaseapp.com",
@@ -122,12 +141,14 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // === Login Logic ===
+    let senderName = "";
+
     const loginScreen = document.getElementById("loginScreen");
     const chatContainer = document.getElementById("chatContainer");
     const errorMsg = document.getElementById("loginError");
 
     if (localStorage.getItem("chatAccess") === "true") {
+      senderName = localStorage.getItem("senderName");
       loginScreen.style.display = "none";
       chatContainer.style.display = "block";
       startChat();
@@ -137,22 +158,28 @@
 
     function checkAccess() {
       const pass = document.getElementById("accessCode").value.trim();
-      if (pass === "12345") {
-        localStorage.setItem("chatAccess", "true");
-        loginScreen.style.display = "none";
-        chatContainer.style.display = "block";
-        startChat();
+      if (pass === "ayan123") {
+        senderName = "Babygurl";
+      } else if (pass === "umama123") {
+        senderName = "Kuchu Princess";
       } else {
         errorMsg.style.display = "block";
+        return;
       }
+
+      localStorage.setItem("chatAccess", "true");
+      localStorage.setItem("senderName", senderName);
+      loginScreen.style.display = "none";
+      chatContainer.style.display = "block";
+      startChat();
     }
 
     document.getElementById('logout').addEventListener('click', () => {
       localStorage.removeItem('chatAccess');
+      localStorage.removeItem('senderName');
       location.reload();
     });
 
-    // === Chat Logic (only runs after login) ===
     function startChat() {
       const messagesRef = db.ref('messages');
       const messagesList = document.getElementById('messages');
@@ -165,6 +192,7 @@
         if (text) {
           messagesRef.push({
             text: text,
+            sender: senderName,
             timestamp: Date.now()
           });
           input.value = '';
@@ -175,12 +203,14 @@
         const msg = snapshot.val();
         const time = new Date(msg.timestamp).toLocaleString();
         const li = document.createElement('li');
-        li.textContent = `[${time}] ${msg.text}`;
+        li.className = msg.sender === "Babygurl" ? "babygurl" :
+                       msg.sender === "Kuchu Princess" ? "kuchu" : "";
+        li.textContent = `[${time}] ${msg.sender || "Anonymous"}: ${msg.text}`;
         messagesList.appendChild(li);
         messagesList.scrollTop = messagesList.scrollHeight;
       });
 
-      // === Real-time Online Users ===
+      // Real-time Online Users
       const onlineRef = db.ref('.info/connected');
       const usersRef = db.ref('onlineUsers');
 
