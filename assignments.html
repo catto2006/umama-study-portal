@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Assignments – Karachi Board Medical Coaching Center</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="assignments.js"></script>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assignments – KB Medical Coaching Center</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="assignments.js"></script>
 </head>
 <body>
-
 <header>
-  <img src="images/karachi_board_logo.png" class="board-logo" alt="Karachi Board Logo" />
-  <h1>Karachi Board Medical Coaching Center</h1>
+  <img src="images/karachi_board_logo.png" class="board-logo" alt="Logo">
+  <h1>KB Medical Coaching Center</h1>
   <nav>
     <a href="index.html">Home</a>
     <a href="lectures.html">Lectures</a>
@@ -23,7 +20,6 @@
 
 <main class="container">
   <h2>Your Assignments</h2>
-
   <ul class="assignment-history" id="history-list">
     <li><h4>Zoology Worksheet 1</h4><small>Due: July 28, 2025</small></li>
     <li><h4>Botany Essay</h4><small>Due: July 30, 2025</small></li>
@@ -31,24 +27,17 @@
   </ul>
 
   <ul id="assignments-list" class="assignment-list"></ul>
-
   <div class="assignment-form">
     <h3>Add New Assignment</h3>
     <form id="assignment-form">
-      <label>Title:</label><br />
-      <input type="text" id="title" required /><br /><br />
-      <label>Details:</label><br />
-      <textarea id="description" rows="4" required></textarea><br /><br />
-      <label>Due Date:</label><br />
-      <input type="date" id="due" required /><br /><br />
+      <input type="text" id="title" placeholder="Title" required><br>
+      <textarea id="description" placeholder="Details" rows="4" required></textarea><br>
+      <input type="date" id="due" required><br>
       <button type="submit" class="btn">Add Assignment</button>
     </form>
   </div>
 </main>
 
-<footer>
-  <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
-</footer>
-
+<footer><p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p></footer>
 </body>
 </html>
