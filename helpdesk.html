@@ -4,319 +4,338 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Help Desk Chat - Karachi Board Medical Coaching Center</title>
-
   <style>
-    /* Reset & base styles */
+    /* Reset & base */
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f1ed;
-      color: #2f2f2f;
+      margin: 0;
+      background: #fff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #262626;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
     }
     header {
-      background: #b36b00;
-      color: #fff;
+      background: #0095f6;
+      color: white;
+      font-weight: 700;
+      padding: 14px 20px;
+      font-size: 18px;
       text-align: center;
-      font-size: 1.5rem;
-      padding: 15px 10px;
-      font-weight: 600;
-      letter-spacing: 1px;
       user-select: none;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+      flex-shrink: 0;
     }
     main {
       flex-grow: 1;
-      max-width: 600px;
-      margin: 15px auto;
-      width: 95%;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      padding: 0;
+      background: #fafafa;
     }
-    /* Login section */
+
+    /* Login Section */
     #login-section {
-      background: #fff8f0;
-      padding: 20px 25px;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      padding: 40px 20px;
+      max-width: 400px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
       text-align: center;
+      user-select: none;
     }
     #login-section p {
-      margin-bottom: 10px;
       font-weight: 600;
-      color: #704b00;
-      font-size: 1.1rem;
+      font-size: 16px;
+      margin-bottom: 14px;
+      color: #262626;
     }
     #access-code {
-      width: 65%;
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1.5px solid #b36b00;
-      font-size: 1rem;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 20px;
+      border: 1px solid #dbdbdb;
+      font-size: 15px;
+      outline: none;
       transition: border-color 0.3s ease;
+      user-select: text;
     }
     #access-code:focus {
-      outline: none;
-      border-color: #ffac33;
-      box-shadow: 0 0 8px #ffac33aa;
+      border-color: #0095f6;
+      box-shadow: 0 0 6px #0095f6aa;
     }
     #login-btn {
-      margin-left: 12px;
-      padding: 8px 16px;
-      background: #b36b00;
+      margin-top: 18px;
+      background: #0095f6;
       border: none;
-      border-radius: 8px;
       color: white;
-      font-weight: 600;
-      font-size: 1rem;
+      padding: 12px 0;
+      font-weight: 700;
+      width: 100%;
+      border-radius: 20px;
+      font-size: 16px;
       cursor: pointer;
+      user-select: none;
       transition: background 0.3s ease;
     }
     #login-btn:hover {
-      background: #d18e00;
+      background: #0077cc;
     }
     #login-error {
-      margin-top: 10px;
-      color: #cc0000;
-      font-weight: 600;
+      color: #ed4956;
+      margin-top: 12px;
+      font-size: 14px;
       display: none;
       user-select: none;
     }
 
-    /* Chat section */
+    /* Chat Section */
     #chat-section {
       display: none;
-      background: #fff;
-      border-radius: 15px;
-      padding: 15px 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
       flex-direction: column;
-      height: 550px;
+      height: 100%;
       position: relative;
-    }
-    #emergency-btn {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      padding: 6px 15px;
-      background: #ff3333;
-      color: #fff;
-      border: none;
-      border-radius: 25px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(255,0,0,0.6);
-      user-select: none;
-      transition: background 0.3s ease;
-      z-index: 5;
-    }
-    #emergency-btn:hover {
-      background: #cc0000;
-    }
-
-    #online-users {
-      position: absolute;
-      left: 20px;
-      top: 20px;
-      font-weight: 600;
-      color: #b36b00;
-      user-select: none;
-      font-size: 0.95rem;
-      z-index: 5;
-    }
-
-    #messages {
-      overflow-y: auto;
-      flex-grow: 1;
-      padding: 10px 15px;
-      margin-top: 55px;
-      border-radius: 12px;
-      background: #fefefe;
-      box-shadow: inset 0 0 12px #ddd;
-      font-size: 1rem;
-      line-height: 1.3;
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fafafa;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+      border-radius: 14px 14px 0 0;
       user-select: text;
     }
 
-    .message {
-      margin-bottom: 11px;
-      padding: 8px 12px;
-      border-radius: 15px;
-      max-width: 85%;
-      word-wrap: break-word;
-      box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
-      position: relative;
-      font-weight: 600;
-    }
-    .sender-Babygurl {
-      background: #ffd6a0;
-      color: #5b3a00;
-      margin-left: auto;
-      border-bottom-right-radius: 3px;
-    }
-    .sender-KuchuPrincess {
-      background: #b0e1ff;
-      color: #004469;
-      margin-left: auto;
-      border-bottom-right-radius: 3px;
-    }
-    .sender-System {
-      background: #eeeeee;
-      color: #444;
-      margin-left: 0;
+    /* Emergency button (top-right) */
+    #emergency-btn {
+      background: #ed4956;
+      color: white;
       font-weight: 700;
-      font-style: italic;
+      padding: 6px 15px;
+      border-radius: 25px;
+      border: none;
+      box-shadow: 0 2px 8px rgba(237, 73, 86, 0.7);
+      transition: background 0.3s ease;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
     }
+    #emergency-btn:hover {
+      background: #c72f3f;
+    }
+
+    #online-users {
+      font-weight: 600;
+      font-size: 14px;
+      padding: 18px 20px 8px;
+      color: #8e8e8e;
+      user-select: none;
+    }
+
+    #messages {
+      background: #fafafa;
+      padding: 20px 16px;
+      font-size: 14px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      overflow-y: auto;
+      flex-grow: 1;
+      scroll-behavior: smooth;
+      user-select: text;
+      border-top: 1px solid #dbdbdb;
+      border-bottom: 1px solid #dbdbdb;
+    }
+
+    .message {
+      max-width: 70%;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-weight: 500;
+      line-height: 1.35;
+      position: relative;
+      word-wrap: break-word;
+      font-size: 14px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      transition: background-color 0.3s ease;
+      box-shadow: none;
+      user-select: text;
+    }
+
+    /* Other users (left aligned) */
+    .sender-System {
+      background: #e4e6eb;
+      color: #050505;
+      margin-right: auto;
+      border-bottom-left-radius: 0;
+    }
+
+    /* Your messages (right aligned) */
+    .sender-Babygurl,
+    .sender-KuchuPrincess {
+      background: #0095f6;
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 0;
+    }
+
+    /* Timestamps */
     .timestamp {
-      font-size: 0.7rem;
-      color: #999;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
       position: absolute;
       bottom: 4px;
-      right: 10px;
+      right: 12px;
       user-select: none;
+    }
+
+    .sender-System .timestamp {
+      color: rgba(0, 0, 0, 0.4);
+      right: 12px;
+      bottom: -18px;
+      font-weight: 400;
+      position: static;
+      margin-top: 4px;
     }
 
     /* Welcome message style */
     #welcome-message {
-      background: #ffe4b5;
-      color: #6b4c00;
-      margin: 10px auto 15px;
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-style: italic;
-      font-weight: 600;
-      max-width: 90%;
+      background: transparent;
+      color: #8e8e8e;
+      font-style: normal;
+      font-weight: 400;
       text-align: center;
+      margin-bottom: 20px;
       user-select: none;
+    }
+
+    /* Scrollbar styling */
+    #messages::-webkit-scrollbar {
+      width: 6px;
+    }
+    #messages::-webkit-scrollbar-thumb {
+      background-color: #c7c7c7;
+      border-radius: 3px;
     }
 
     /* Chat input area */
     #chat-form {
-      margin-top: 15px;
       display: flex;
-      flex-direction: column;
-      user-select: none;
-    }
-    #input-area {
-      display: flex;
-      gap: 10px;
+      padding: 12px 16px;
+      background: white;
+      border-top: 1px solid #dbdbdb;
+      border-radius: 0 0 14px 14px;
       align-items: center;
-    }
-    #message-input {
-      flex-grow: 1;
-      padding: 12px 15px;
-      font-size: 1.05rem;
-      border-radius: 30px;
-      border: 1.8px solid #b36b00;
-      transition: box-shadow 0.3s ease;
-      user-select: text;
-    }
-    #message-input:focus {
-      outline: none;
-      box-shadow: 0 0 8px #ffac33aa;
-      border-color: #ffac33;
-    }
-    #emoji-btn {
-      background: #f0f0f0;
-      border: none;
-      border-radius: 50%;
-      width: 38px;
-      height: 38px;
-      font-size: 1.2rem;
-      cursor: pointer;
+      gap: 12px;
       user-select: none;
-      transition: background 0.2s ease;
-    }
-    #emoji-btn:hover {
-      background: #e0e0e0;
-    }
-    #chat-form button[type="submit"] {
-      background: #b36b00;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      padding: 10px 20px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-    #chat-form button[type="submit"]:hover {
-      background: #d18e00;
+      flex-shrink: 0;
     }
 
-    /* Emoji picker */
+    #message-input {
+      flex-grow: 1;
+      border: none;
+      font-size: 15px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #262626;
+      padding: 10px 16px;
+      background: #fafafa;
+      border-radius: 20px;
+      outline: none;
+      user-select: text;
+    }
+    #message-input::placeholder {
+      color: #999;
+    }
+
+    #emoji-btn {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: #262626;
+      cursor: pointer;
+      user-select: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #chat-form button[type="submit"] {
+      background: transparent;
+      border: none;
+      color: #0095f6;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+      padding: 8px 12px;
+      transition: opacity 0.3s ease;
+    }
+    #chat-form button[type="submit"]:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    /* Emoji picker styling */
     #emoji-picker {
-      display: none;
       position: absolute;
-      bottom: 65px;
-      left: 10px;
-      background: #fff;
-      border: 1.5px solid #b36b00;
-      border-radius: 10px;
+      bottom: 60px;
+      left: 20px;
+      background: white;
+      border: 1px solid #dbdbdb;
+      border-radius: 14px;
       padding: 10px;
-      width: 280px;
-      max-width: 95vw;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      max-width: 280px;
+      display: none;
       flex-wrap: wrap;
       gap: 8px;
       user-select: none;
-      z-index: 10;
-      display: flex;
-      flex-wrap: wrap;
+      box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+      z-index: 20;
     }
     #emoji-picker span {
       cursor: pointer;
-      font-size: 1.3rem;
-      padding: 4px 7px;
-      border-radius: 6px;
+      font-size: 20px;
       user-select: none;
-      transition: background 0.2s ease;
-      line-height: 1;
-      text-align: center;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
-    #emoji-picker span:hover, #emoji-picker span:focus {
-      background: #b36b00;
-      color: white;
+    #emoji-picker span:hover,
+    #emoji-picker span:focus {
+      background: #f0f0f0;
       outline: none;
     }
 
-    /* Lectures section */
+    /* Lectures Section */
     #lectures-section {
-      background: #fff8f0;
-      padding: 30px 25px;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      font-size: 1.2rem;
-      color: #5a4a00;
-      text-align: center;
+      display: none;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 16px;
+      color: #262626;
       user-select: none;
     }
 
-    /* Responsive */
-    @media (max-width: 480px) {
-      #access-code {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-      #login-btn {
-        width: 100%;
-        margin-left: 0;
+    /* Responsive tweaks */
+    @media (max-width: 640px) {
+      #chat-section, #lectures-section, #login-section {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        height: 100vh;
       }
       #chat-section {
-        height: 450px;
-      }
-      #emergency-btn {
-        top: 10px;
-        right: 10px;
+        height: 100%;
       }
     }
   </style>
@@ -328,46 +347,62 @@
 
   <main>
     <!-- Login Section -->
-    <section id="login-section" aria-label="Login to chat help desk">
+    <section id="login-section" aria-label="Login to chat">
       <p>Enter your access code:</p>
-      <input type="password" id="access-code" placeholder="Access code" autocomplete="off" aria-required="true" aria-describedby="login-error"/>
+      <input
+        type="password"
+        id="access-code"
+        placeholder="Access code"
+        autocomplete="off"
+        aria-required="true"
+        aria-describedby="login-error"
+      />
       <button id="login-btn" aria-label="Login to chat">Login</button>
-      <div id="login-error" role="alert" aria-live="assertive">Invalid access code, please try again.</div>
+      <div id="login-error" role="alert" aria-live="assertive">
+        Invalid access code, please try again.
+      </div>
     </section>
 
     <!-- Chat Section -->
-    <section id="chat-section" aria-label="Chat help desk" style="display:none; flex-direction: column; height: 500px; position: relative;">
-      <button id="emergency-btn" title="Exit chat and view lectures">Emergency Surge</button>
+    <section id="chat-section" aria-label="Chat interface" role="region" aria-live="polite">
+      <button id="emergency-btn" title="Exit chat and view lectures" aria-label="Exit chat">
+        Emergency Surge
+      </button>
       <div id="online-users" aria-live="polite">Online Users: 0</div>
       <div id="messages" tabindex="0" aria-live="polite" aria-relevant="additions"></div>
-      <form id="chat-form" autocomplete="off" aria-label="Send a chat message" style="position: relative;">
-        <div id="input-area">
-          <input
-            type="text"
-            id="message-input"
-            placeholder="Type your message here..."
-            required
-            aria-label="Message input"
-          />
-          <button type="button" id="emoji-btn" aria-label="Toggle emoji picker" title="Add emoji">😊</button>
-          <button type="submit" aria-label="Send message">Send</button>
-        </div>
+      <form id="chat-form" autocomplete="off" aria-label="Send a chat message">
+        <button type="button" id="emoji-btn" aria-label="Toggle emoji picker" title="Add emoji">😊</button>
+        <input
+          type="text"
+          id="message-input"
+          placeholder="Type your message here..."
+          required
+          aria-label="Message input"
+          autocomplete="off"
+        />
+        <button type="submit" aria-label="Send message" disabled>Send</button>
         <div id="emoji-picker" aria-label="Emoji picker" role="list"></div>
       </form>
     </section>
 
     <!-- Lectures Section -->
-    <section id="lectures-section" aria-live="polite" aria-atomic="true" style="display:none;">
-      <p>Welcome to the Lecture Material page! Please login to join the help desk chat.</p>
+    <section
+      id="lectures-section"
+      aria-live="polite"
+      aria-atomic="true"
+      role="region"
+      tabindex="0"
+    >
+      <p>Welcome to the Lecture Material page! Please login to join the admin help desk.</p>
     </section>
   </main>
 
-  <!-- Firebase libraries -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
   <script>
-    // Firebase config - replace with your actual details if needed
+    // Firebase config - replace with your details
     const firebaseConfig = {
       apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
       authDomain: "umama-study-portal.firebaseapp.com",
@@ -394,31 +429,49 @@
     const emojiBtn = document.getElementById("emoji-btn");
     const emojiPicker = document.getElementById("emoji-picker");
     const messageInput = document.getElementById("message-input");
+    const sendBtn = chatForm.querySelector('button[type="submit"]');
 
-    // Access codes mapping to usernames
     const accessCodes = {
-      "ayan123": "Babygurl",
-      "umama123": "KuchuPrincess"
+      ayan123: "Babygurl",
+      umama123: "KuchuPrincess",
     };
 
     let currentUser = null;
     let userStatusRef = null;
-    let messagesLoaded = false;  // Flag to avoid duplicate welcome message
+    let messagesLoaded = false; // Flag to avoid duplicate welcome message
 
-    // Emoji array & populate picker
-    const emojis = ["😀","🙀","🐈","😭","🐁","👍","😾","🎉","🔥","💖","🌟","🪈","😡","😴","🤔","🙌"];
-    emojis.forEach(e => {
+    // Emoji array & populate
+    const emojis = [
+      "😀",
+      "🙀",
+      "🐈",
+      "😭",
+      "🐁",
+      "👍",
+      "😾",
+      "🎉",
+      "🔥",
+      "💖",
+      "🌟",
+      "🪈",
+      "😡",
+      "😴",
+      "🤔",
+      "🙌",
+    ];
+    emojis.forEach((e) => {
       const span = document.createElement("span");
       span.textContent = e;
-      span.setAttribute('role', 'option');
+      span.setAttribute("role", "option");
       span.tabIndex = 0;
       span.addEventListener("click", () => {
         messageInput.value += e;
         messageInput.focus();
         emojiPicker.style.display = "none";
+        toggleSendButton();
       });
       span.addEventListener("keydown", (event) => {
-        if(event.key === 'Enter' || event.key === ' ') {
+        if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           span.click();
         }
@@ -427,11 +480,11 @@
     });
 
     emojiBtn.addEventListener("click", () => {
-      emojiPicker.style.display = emojiPicker.style.display === "flex" ? "none" : "flex";
+      emojiPicker.style.display =
+        emojiPicker.style.display === "flex" ? "none" : "flex";
     });
 
-    // Hide emoji picker when clicking outside
-    document.addEventListener("click", e => {
+    document.addEventListener("click", (e) => {
       if (!emojiPicker.contains(e.target) && e.target !== emojiBtn) {
         emojiPicker.style.display = "none";
       }
@@ -442,122 +495,100 @@
       messagesDiv.innerHTML = "";
     }
 
-    // Display welcome message (once)
+    // Display welcome message separately, only once on login
     function displayWelcomeMessage(user) {
+      // Remove previous welcome message if any
       const oldWelcome = document.getElementById("welcome-message");
       if (oldWelcome) oldWelcome.remove();
 
-      const welcomeEl = document.createElement("div");
-      welcomeEl.id = "welcome-message";
-      welcomeEl.style.cssText = `
-        background: #ffe4b5;
-        color: #6b4c00;
-        margin: 10px auto 15px;
-        border-radius: 20px;
-        padding: 10px 20px;
-        font-style: italic;
-        font-weight: 600;
-        max-width: 90%;
-        text-align: center;
-        user-select: none;
-      `;
-      welcomeEl.textContent = `Welcome ${user}! You have entered the help desk.`;
-      messagesDiv.prepend(welcomeEl);
+      const p = document.createElement("p");
+      p.id = "welcome-message";
+      p.textContent = `Welcome, ${user}! How can we assist you today?`;
+      messagesDiv.prepend(p);
     }
 
-    // Format timestamp as HH:MM am/pm
-    function formatTimestamp(ts) {
-      const date = new Date(ts);
-      return date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    // Format timestamp as hh:mm AM/PM
+    function formatTimestamp(timestamp) {
+      const d = new Date(timestamp);
+      let hours = d.getHours();
+      const minutes = d.getMinutes();
+      const ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12 || 12;
+      const mStr = minutes < 10 ? "0" + minutes : minutes;
+      return `${hours}:${mStr} ${ampm}`;
     }
 
-    // Display chat message
-    function displayMessage(sender, text, timestamp) {
-      const messageEl = document.createElement("div");
-      messageEl.classList.add("message");
+    // Add message bubble
+    function addMessage(message) {
+      // Remove welcome message after first real message
+      const welcomeMsg = document.getElementById("welcome-message");
+      if (welcomeMsg) welcomeMsg.style.display = "none";
 
-      if (sender === "Babygurl") {
-        messageEl.classList.add("sender-Babygurl");
-      } else if (sender === "KuchuPrincess") {
-        messageEl.classList.add("sender-KuchuPrincess");
-      } else {
-        messageEl.classList.add("sender-System");
-      }
+      const div = document.createElement("div");
+      div.classList.add("message");
+      div.classList.add("sender-" + message.sender);
 
-      const timeStr = timestamp ? formatTimestamp(timestamp) : '';
-      messageEl.innerHTML = `<strong>${sender}:</strong> ${text} <span class="timestamp">${timeStr}</span>`;
-      messagesDiv.appendChild(messageEl);
+      div.setAttribute("role", "article");
+      div.setAttribute("aria-label", `${message.sender} message`);
+
+      const textSpan = document.createElement("span");
+      textSpan.textContent = message.text;
+      div.appendChild(textSpan);
+
+      const timeSpan = document.createElement("span");
+      timeSpan.className = "timestamp";
+      timeSpan.textContent = formatTimestamp(message.timestamp);
+      div.appendChild(timeSpan);
+
+      messagesDiv.appendChild(div);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // Setup presence and online users count
-    const onlineUsersRef = db.ref("onlineUsers");
-    function setupPresence(uid) {
-      if (userStatusRef) userStatusRef.off();
+    // Fetch and listen to messages in Firebase
+    function listenForMessages() {
+      const messagesRef = db.ref("messages");
 
-      userStatusRef = onlineUsersRef.child(uid);
+      messagesRef.off(); // Remove any previous listeners
 
-      const connectedRef = firebase.database().ref(".info/connected");
-      connectedRef.on("value", snapshot => {
-        if (snapshot.val() === true) {
-          userStatusRef.set(true);
-          userStatusRef.onDisconnect().remove();
-        }
+      messagesRef.on("child_added", (snapshot) => {
+        const msg = snapshot.val();
+        addMessage(msg);
       });
+    }
 
-      // Update online users count on change
-      onlineUsersRef.on("value", snapshot => {
+    // Online users tracking
+    function trackOnlineUsers() {
+      const onlineRef = db.ref("onlineUsers");
+      const userKey = currentUser + Date.now();
+
+      // Add current user to online users list
+      userStatusRef = onlineRef.child(userKey);
+      userStatusRef.set({ name: currentUser, timestamp: Date.now() });
+      userStatusRef.onDisconnect().remove();
+
+      // Update online users count display
+      onlineRef.on("value", (snapshot) => {
         const users = snapshot.val() || {};
         const count = Object.keys(users).length;
-        updateOnlineUsers(count);
-      });
-    }
-
-    function updateOnlineUsers(count) {
-      onlineUsersDiv.textContent = `Online Users: ${count}`;
-    }
-
-    // Load all messages once on login & listen live for new ones
-    function loadMessages() {
-      clearMessages();
-
-      // Load all existing messages once
-      db.ref("messages").once("value", snapshot => {
-        const messages = snapshot.val();
-        if (messages) {
-          Object.values(messages).forEach(msg => {
-            displayMessage(msg.sender, msg.text, msg.timestamp);
-          });
-        }
-        // Show welcome message after loading old chats
-        displayWelcomeMessage(currentUser);
-        messagesLoaded = true; // Now allow listening to new messages
-      });
-
-      // Listen for new messages after initial load
-      db.ref("messages").limitToLast(1).on("child_added", snapshot => {
-        if (!messagesLoaded) return; // Avoid duplicates during initial load
-        const msg = snapshot.val();
-        if (msg) {
-          displayMessage(msg.sender, msg.text, msg.timestamp);
-        }
+        onlineUsersDiv.textContent = `Online Users: ${count}`;
       });
     }
 
     // Login handler
     loginBtn.addEventListener("click", () => {
       const code = accessCodeInput.value.trim();
-      if (accessCodes[code]) {
+      if (code in accessCodes) {
         currentUser = accessCodes[code];
         loginError.style.display = "none";
+
+        // Switch UI sections
         loginSection.style.display = "none";
         lecturesSection.style.display = "none";
         chatSection.style.display = "flex";
-        emergencyBtn.style.display = "inline-block";
 
-        messagesLoaded = false; // Reset flag to avoid message duplication
-        loadMessages();
-        setupPresence(currentUser);
+        displayWelcomeMessage(currentUser);
+        listenForMessages();
+        trackOnlineUsers();
 
         messageInput.focus();
       } else {
@@ -567,41 +598,48 @@
     });
 
     // Send message handler
-    chatForm.addEventListener("submit", e => {
+    chatForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (!currentUser) return;
+      const text = messageInput.value.trim();
+      if (!text) return;
 
-      const message = messageInput.value.trim();
-      if (!message) return;
-
-      db.ref("messages").push({
+      const msg = {
         sender: currentUser,
-        text: message,
-        timestamp: Date.now()
-      });
+        text: text,
+        timestamp: Date.now(),
+      };
 
+      db.ref("messages").push(msg);
       messageInput.value = "";
+      toggleSendButton();
       messageInput.focus();
     });
 
-    // Emergency Surge button: exit chat, reset UI
+    // Emergency button - switch to lectures section
     emergencyBtn.addEventListener("click", () => {
-      chatSection.style.display = "none";
-      emergencyBtn.style.display = "none";
-      lecturesSection.style.display = "block";
-
-      updateOnlineUsers(0);
       if (userStatusRef) {
         userStatusRef.remove();
-        userStatusRef = null;
       }
-      currentUser = null;
-      loginSection.style.display = "block";
-      accessCodeInput.value = "";
-      loginError.style.display = "none";
+      chatSection.style.display = "none";
+      lecturesSection.style.display = "block";
+      onlineUsersDiv.textContent = "";
       clearMessages();
+      currentUser = null;
+      accessCodeInput.value = "";
+      loginSection.style.display = "block";
       accessCodeInput.focus();
     });
+
+    // Enable/disable send button
+    function toggleSendButton() {
+      sendBtn.disabled = messageInput.value.trim() === "";
+    }
+    messageInput.addEventListener("input", toggleSendButton);
+
+    // On page load focus on access code input
+    window.onload = () => {
+      accessCodeInput.focus();
+    };
   </script>
 </body>
 </html>
