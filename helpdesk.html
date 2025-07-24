@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Help Desk - Umama's Study Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script defer src="helpdesk.js"></script>
 </head>
 <body>
   <header>
-    <img src="images/karachi-board-logo.png" alt="Karachi Board Logo" class="logo" />
+    <img src="images/karachi_board_logo.png" alt="Karachi Board Logo" class="board-logo" />
     <h1>Karachi Board Medical Coaching Center</h1>
     <nav>
       <a href="index.html">Home</a>
@@ -20,15 +21,15 @@
     </nav>
   </header>
 
-  <main>
-    <section class="login-section" id="login-section">
+  <main class="container">
+    <section id="login-section" class="login-section">
       <h2>Enter Access Code</h2>
       <input type="password" id="access-code" placeholder="Enter code" autocomplete="off" />
       <button id="login-btn">Login</button>
-      <p id="login-error" style="color: #ff6f61; margin-top: 10px;"></p>
+      <p id="login-error" class="error-message"></p>
     </section>
 
-    <section class="chat-section hidden" id="chat-section">
+    <section id="chat-section" class="chat-section hidden">
       <h2>Help Desk Chat</h2>
       <div id="chat-window" class="chat-window"></div>
       <form id="chat-form">
