@@ -1,66 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Karachi Board Help Desk</title>
-    
-    <!-- Linking the CSS file -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Google Fonts (Roboto, Poppins) for a clean, modern look -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karachi Board Help Desk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <header>
+    <img src="assets/images/karachi_board_logo.png" alt="Karachi Board Logo" class="logo">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="assignments.html">Assignments</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="lectures.html">Lectures</a></li>
+        <li><a href="helpdesk.html">Help Desk</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="intro">
+      <h1>Welcome to Karachi Board Help Desk</h1>
+      <p>Your one-stop solution for study materials, quizzes, assignments, and real-time assistance!</p>
+      <button id="loginBtn">Login to Chat</button>
+    </section>
+  </main>
 
-    <!-- Header Section -->
-    <header>
-        Karachi Board Medical Coaching Center - Help Desk
-    </header>
+  <footer>
+    <p>© 2025 Karachi Board Help Desk. All rights reserved.</p>
+  </footer>
 
-    <!-- Main Content Section -->
-    <main>
-        
-        <!-- Login Section (Green and White theme) -->
-        <section id="login-section">
-            <img src="karachi_board_logo.png" alt="Karachi Board Logo" width="120" style="margin-bottom: 20px;">
-            <h2 style="color: #fff;">Login to Access Help Desk</h2>
-            <p style="color: #bbb;">Enter your access code:</p>
-            <input type="password" id="access-code" placeholder="Access code" autocomplete="off">
-            <button id="login-btn">Login</button>
-            <div id="login-error">Invalid access code, please try again.</div>
-        </section>
-
-        <!-- Chat Section -->
-        <section id="chat-section" style="display:none;">
-            <button id="emergency-btn" title="Exit chat and view lectures">Emergency Surge</button>
-            <div id="online-users">Online Users: 0</div>
-            <div id="messages"></div>
-            <form id="chat-form" autocomplete="off">
-                <div id="input-area">
-                    <input type="text" id="message-input" placeholder="Type your message here..." required>
-                    <button type="button" id="emoji-btn">😊</button>
-                    <button type="submit">Send</button>
-                </div>
-            </form>
-        </section>
-
-        <!-- Lectures Section -->
-        <section id="lectures-section" style="display:none;">
-            <p>Welcome to the Lecture Material page! Please login to join the help desk chat.</p>
-        </section>
-
-    </main>
-
-    <!-- Firebase Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-    
-    <!-- JavaScript File (helpdesk.js) -->
-    <script src="helpdesk.js"></script>
+  <script src="firebaseConfig.js"></script>
 </body>
-
 </html>
