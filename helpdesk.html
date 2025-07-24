@@ -2,45 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Help Desk - Umama's Study Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Help Desk – Karachi Board Medical Coaching Center</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="helpdesk.js"></script>
 </head>
 <body>
-  <header>
-    <img src="images/karachi_board_logo.png" alt="Karachi Board Logo" class="board-logo" />
-    <h1>Karachi Board Medical Coaching Center</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="lectures.html">Lectures</a>
-      <a href="assignments.html">Assignments</a>
-      <a href="notes.html">Notes</a>
-      <a href="helpdesk.html" class="active">Help Desk</a>
-    </nav>
-  </header>
 
-  <main class="container">
-    <section id="login-section" class="login-section">
-      <h2>Enter Access Code</h2>
-      <input type="password" id="access-code" placeholder="Enter code" autocomplete="off" />
-      <button id="login-btn">Login</button>
-      <p id="login-error" class="error-message"></p>
-    </section>
+<header>
+  <img src="images/karachi_board_logo.png" class="board-logo" alt="Karachi Board Logo" />
+  <h1>Karachi Board Medical Coaching Center</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="lectures.html">Lectures</a>
+    <a href="assignments.html">Assignments</a>
+    <a href="notes.html">Notes</a>
+    <a href="helpdesk.html" class="active">Help Desk</a>
+  </nav>
+</header>
 
-    <section id="chat-section" class="chat-section hidden">
-      <h2>Help Desk Chat</h2>
-      <div id="chat-window" class="chat-window"></div>
-      <form id="chat-form">
-        <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off" required />
-        <button type="submit">Send</button>
-      </form>
-    </section>
-  </main>
+<main class="container" id="chat-section">
+  <div id="auth">
+    <h2>Staff Only Access</h2>
+    <p>Please enter your access code:</p>
+    <input type="password" id="access-code" placeholder="Enter code..." />
+    <button onclick="verifyCode()" class="btn">Enter</button>
+  </div>
 
-  <footer>
-    <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
-  </footer>
+  <div id="chat-area" class="hidden">
+    <h2>Live Help Desk</h2>
+    <p class="online-count" id="onlineUsers">Online Users: 0</p>
+    <div id="messages" class="messages"></div>
+    <form id="chat-form">
+      <input type="text" id="chat-input" placeholder="Type your message..." required />
+      <button type="submit" class="btn">Send</button>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 Karachi Board Medical Coaching Center. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
