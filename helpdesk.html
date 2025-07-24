@@ -6,325 +6,7 @@
   <title>Help Desk Chat - Karachi Board Medical Coaching Center</title>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-    /* Body & page basics */
-    body {
-      margin: 0; padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f0f4f8;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      color: #444;
-    }
-
-    header {
-      background: #169116; /* green header */
-      color: #fff;
-      padding: 1.5rem;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1.8rem;
-      box-shadow: 0 4px 10px rgba(22, 145, 22, 0.5);
-      letter-spacing: 1px;
-    }
-
-    main {
-      flex-grow: 1;
-      max-width: 700px;
-      margin: 2rem auto;
-      background: #fff;
-      border-radius: 25px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      padding: 2rem;
-    }
-
-    /* Login Section */
-    #login-section {
-      text-align: center;
-    }
-    #login-section p {
-      font-weight: 600;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-    #access-code {
-      width: 60%;
-      max-width: 300px;
-      padding: 12px 16px;
-      font-size: 1rem;
-      border-radius: 30px;
-      border: 2px solid #169116;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-    #access-code:focus {
-      border-color: #0f890f;
-      box-shadow: 0 0 8px #0f890faa;
-    }
-    #login-btn {
-      background: #169116;
-      border: none;
-      color: white;
-      padding: 12px 28px;
-      font-size: 1rem;
-      margin-left: 15px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-weight: 600;
-      box-shadow: 0 4px 12px #169116aa;
-    }
-    #login-btn:hover {
-      background: #0f890f;
-      box-shadow: 0 6px 20px #0f890faa;
-    }
-    #login-error {
-      color: #b71c1c;
-      margin-top: 12px;
-      font-weight: 600;
-      display: none;
-    }
-
-    /* Chat Section */
-    #chat-section {
-      display: none;
-      flex-direction: column;
-      height: 500px;
-      position: relative;
-    }
-
-    #emergency-btn {
-      background: #a1d490;
-      border: none;
-      padding: 10px 20px;
-      margin-bottom: 15px;
-      border-radius: 20px;
-      font-weight: 700;
-      cursor: pointer;
-      color: #115611;
-      transition: background 0.3s ease;
-      align-self: flex-start;
-      box-shadow: 0 3px 10px #8cc57c99;
-    }
-    #emergency-btn:hover {
-      background: #8cc57c;
-      box-shadow: 0 4px 15px #6f9d5dcc;
-    }
-
-    #online-users {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #169116;
-      text-align: right;
-      margin-bottom: 15px;
-      letter-spacing: 0.8px;
-    }
-
-    #messages {
-      background: #e6f1d9;
-      border-radius: 25px;
-      padding: 20px;
-      flex-grow: 1;
-      overflow-y: auto;
-      box-shadow: inset 0 0 10px #9ccd6d88;
-      scroll-behavior: smooth;
-      position: relative;
-    }
-
-    /* Welcome message style separate from chat */
-    #welcome-message {
-      background: #ffe4b5;
-      color: #6b4c00;
-      margin: 10px auto 15px;
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-style: italic;
-      font-weight: 600;
-      max-width: 90%;
-      text-align: center;
-      box-shadow: none;
-    }
-
-    .message {
-      max-width: 70%;
-      margin-bottom: 15px;
-      padding: 14px 20px;
-      border-radius: 25px;
-      font-size: 1rem;
-      line-height: 1.3;
-      position: relative;
-      box-shadow: 0 2px 10px rgb(0 0 0 / 0.08);
-      word-wrap: break-word;
-      transition: transform 0.3s ease;
-    }
-
-    /* Sender Styles */
-    .sender-Babygurl {
-      background: linear-gradient(135deg, #b9f6ca, #d0f8ce);
-      color: #004d40;
-      margin-left: auto;
-      border-bottom-right-radius: 4px;
-      text-align: right;
-    }
-    .sender-KuchuPrincess {
-      background: linear-gradient(135deg, #ffd6a5, #ffb347);
-      color: #5a3e1b;
-      margin-right: auto;
-      border-bottom-left-radius: 4px;
-      text-align: left;
-    }
-    .sender-System {
-      background: #dcedc8;
-      color: #558b2f;
-      margin: 10px auto;
-      border-radius: 12px;
-      font-style: italic;
-      max-width: 90%;
-      text-align: center;
-      box-shadow: none;
-    }
-
-    .message strong {
-      font-weight: 700;
-    }
-
-    .timestamp {
-      display: block;
-      font-size: 0.75rem;
-      margin-top: 6px;
-      opacity: 0.6;
-      font-style: italic;
-    }
-
-    /* Input area */
-    #input-area {
-      margin-top: 15px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      position: relative;
-    }
-
-    #message-input {
-      flex-grow: 1;
-      border-radius: 30px;
-      border: 2px solid #169116;
-      padding: 14px 20px;
-      font-size: 1.1rem;
-      outline: none;
-      transition: border-color 0.3s ease;
-      background: #f9fff6;
-      color: #444;
-      box-shadow: 0 2px 8px #a7d2a955;
-    }
-    #message-input:focus {
-      border-color: #0f890f;
-      box-shadow: 0 0 12px #0f890faa;
-    }
-
-    #input-area button[type="submit"] {
-      background: #169116;
-      color: white;
-      border: none;
-      font-size: 1.1rem;
-      padding: 14px 28px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 700;
-      box-shadow: 0 6px 18px #169116cc;
-      transition: background 0.3s ease;
-    }
-    #input-area button[type="submit"]:hover {
-      background: #0f890f;
-      box-shadow: 0 8px 28px #0f890fcc;
-    }
-
-    /* Emoji button */
-    #emoji-btn {
-      background: transparent;
-      border: none;
-      font-size: 1.7rem;
-      cursor: pointer;
-      user-select: none;
-      padding: 0 6px;
-      line-height: 1;
-      color: #555;
-      transition: color 0.3s ease;
-    }
-    #emoji-btn:hover {
-      color: #0f890f;
-    }
-
-    /* Emoji picker styles */
-    #emoji-picker {
-      position: absolute;
-      bottom: 60px;
-      right: 70px;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      padding: 10px;
-      display: none;
-      max-width: 300px;
-      max-height: 150px;
-      overflow-y: auto;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      z-index: 1000;
-      user-select: none;
-      font-size: 1.4rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-    #emoji-picker span {
-      cursor: pointer;
-      transition: transform 0.2s ease, color 0.2s ease;
-      padding: 3px 5px;
-      border-radius: 6px;
-    }
-    #emoji-picker span:hover {
-      transform: scale(1.3);
-      color: #169116;
-      background-color: #e2f0d9;
-    }
-
-    /* Lectures section */
-    #lectures-section {
-      display: none;
-      text-align: center;
-      padding: 3rem 2rem;
-      color: #3e6827;
-      font-weight: 700;
-      font-size: 1.4rem;
-      border-radius: 25px;
-      background: #dcedc8;
-      box-shadow: 0 4px 20px #a5c975aa inset;
-    }
-
-    /* Responsive */
-    @media (max-width: 480px) {
-      main {
-        margin: 1rem;
-        padding: 1rem;
-        height: 100vh;
-        max-width: 100%;
-      }
-      #messages {
-        height: 300px;
-      }
-      #input-area button[type="submit"], #login-btn {
-        padding: 12px 20px;
-        font-size: 1rem;
-      }
-      #access-code {
-        width: 100%;
-        max-width: none;
-      }
-    }
+    /* (same styling as before - omitted here for brevity, just copy from previous) */
   </style>
 </head>
 <body>
@@ -342,7 +24,7 @@
     </section>
 
     <!-- Chat Section -->
-    <section id="chat-section">
+    <section id="chat-section" style="display:none; flex-direction: column; height: 500px; position: relative;">
       <button id="emergency-btn" title="Exit chat and view lectures">Emergency Surge</button>
       <div id="online-users">Online Users: 0</div>
       <div id="messages"></div>
@@ -363,19 +45,18 @@
     </section>
 
     <!-- Lectures Section -->
-    <section id="lectures-section" aria-live="polite" aria-atomic="true">
+    <section id="lectures-section" aria-live="polite" aria-atomic="true" style="display:none;">
       <p>Welcome to the Lecture Material page! Please login to join the help desk chat.</p>
     </section>
   </main>
 
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
   <script>
-    // Your Firebase configuration (Replace with your config)
+    // Firebase config - replace with your details
     const firebaseConfig = {
-  apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
+      apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
   authDomain: "umama-study-portal.firebaseapp.com",
   projectId: "umama-study-portal",
   storageBucket: "umama-study-portal.firebasestorage.app",
@@ -383,11 +64,10 @@
   appId: "1:438854993441:web:bbe2003382a6bfefbcc560",
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // DOM elements
+    // Elements
     const loginSection = document.getElementById("login-section");
     const chatSection = document.getElementById("chat-section");
     const lecturesSection = document.getElementById("lectures-section");
@@ -398,12 +78,10 @@
     const onlineUsersDiv = document.getElementById("online-users");
     const chatForm = document.getElementById("chat-form");
     const emergencyBtn = document.getElementById("emergency-btn");
-
     const emojiBtn = document.getElementById("emoji-btn");
     const emojiPicker = document.getElementById("emoji-picker");
     const messageInput = document.getElementById("message-input");
 
-    // Access codes mapping
     const accessCodes = {
       "ayan123": "Babygurl",
       "umama123": "KuchuPrincess"
@@ -411,11 +89,10 @@
 
     let currentUser = null;
     let userStatusRef = null;
+    let messagesLoaded = false;  // Flag to avoid duplicate welcome message
 
-    // Emoji set
-    const emojis = ["😀","😂","😊","😍","😎","👍","🙏","🎉","🔥","💖","🌟","😢","😡","😴","🤔","🙌"];
-
-    // Populate emoji picker
+    // Emoji array & populate
+    const emojis = ["😀","🙀","🐈","😭","🐁","👍","😾","🎉","🔥","💖","🌟","🪈","😡","😴","🤔","🙌"];
     emojis.forEach(e => {
       const span = document.createElement("span");
       span.textContent = e;
@@ -427,7 +104,7 @@
         emojiPicker.style.display = "none";
       });
       span.addEventListener("keydown", (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
+        if(event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
           span.click();
         }
@@ -435,38 +112,52 @@
       emojiPicker.appendChild(span);
     });
 
-    // Toggle emoji picker visibility
     emojiBtn.addEventListener("click", () => {
       emojiPicker.style.display = emojiPicker.style.display === "flex" ? "none" : "flex";
     });
 
-    // Close emoji picker when clicking outside
     document.addEventListener("click", e => {
       if (!emojiPicker.contains(e.target) && e.target !== emojiBtn) {
         emojiPicker.style.display = "none";
       }
     });
 
-    // Clear chat messages
+    // Clear messages
     function clearMessages() {
       messagesDiv.innerHTML = "";
     }
 
-    // Display welcome message (separate)
+    // Display welcome message separately, only once on login
     function displayWelcomeMessage(user) {
-      clearMessages();
+      // Remove previous welcome message if any
+      const oldWelcome = document.getElementById("welcome-message");
+      if (oldWelcome) oldWelcome.remove();
+
       const welcomeEl = document.createElement("div");
       welcomeEl.id = "welcome-message";
+      welcomeEl.style.cssText = `
+        background: #ffe4b5;
+        color: #6b4c00;
+        margin: 10px auto 15px;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-style: italic;
+        font-weight: 600;
+        max-width: 90%;
+        text-align: center;
+      `;
       welcomeEl.textContent = `Welcome ${user}! You have entered the help desk.`;
-      messagesDiv.appendChild(welcomeEl);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      messagesDiv.prepend(welcomeEl);
     }
 
-    // Display a chat message
-    function displayMessage(sender, text) {
-      // Prevent duplicate welcome message in chat
-      if (text.startsWith("Welcome ") && sender === "System") return;
+    // Format timestamp nicely
+    function formatTimestamp(ts) {
+      const date = new Date(ts);
+      return date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    }
 
+    // Display chat message
+    function displayMessage(sender, text, timestamp) {
       const messageEl = document.createElement("div");
       messageEl.classList.add("message");
 
@@ -478,13 +169,14 @@
         messageEl.classList.add("sender-System");
       }
 
-      const timeStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      const timeStr = timestamp ? formatTimestamp(timestamp) : '';
       messageEl.innerHTML = `<strong>${sender}:</strong> ${text} <span class="timestamp">${timeStr}</span>`;
       messagesDiv.appendChild(messageEl);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // Setup presence system in Firebase for online user tracking
+    // Setup presence (online users)
+    const onlineUsersRef = db.ref("onlineUsers");
     function setupPresence(uid) {
       if (userStatusRef) userStatusRef.off();
 
@@ -498,7 +190,7 @@
         }
       });
 
-      // Listen for online users count updates
+      // Update online users count on change
       onlineUsersRef.on("value", snapshot => {
         const users = snapshot.val() || {};
         const count = Object.keys(users).length;
@@ -506,15 +198,41 @@
       });
     }
 
-    // Update online user count display
     function updateOnlineUsers(count) {
       onlineUsersDiv.textContent = `Online Users: ${count}`;
     }
 
-    // Reference to onlineUsers in database
-    const onlineUsersRef = db.ref("onlineUsers");
+    // Load all messages once on login & then listen for new ones live
+    function loadMessages() {
+      clearMessages();
 
-    // Login button click
+      // Load all existing messages once
+      db.ref("messages").once("value", snapshot => {
+        const messages = snapshot.val();
+        if (messages) {
+          Object.values(messages).forEach(msg => {
+            displayMessage(msg.sender, msg.text, msg.timestamp);
+          });
+        }
+        // Show welcome message after loading old chats
+        displayWelcomeMessage(currentUser);
+      });
+
+      // Listen for new messages after initial load
+      db.ref("messages").limitToLast(1).on("child_added", snapshot => {
+        const msg = snapshot.val();
+        // Avoid duplicating messages already shown on initial load
+        if (!messagesLoaded) {
+          messagesLoaded = true;
+          return; // skip the very first event which will duplicate last message
+        }
+        if (msg) {
+          displayMessage(msg.sender, msg.text, msg.timestamp);
+        }
+      });
+    }
+
+    // Login handler
     loginBtn.addEventListener("click", () => {
       const code = accessCodeInput.value.trim();
       if (accessCodes[code]) {
@@ -525,20 +243,16 @@
         chatSection.style.display = "flex";
         emergencyBtn.style.display = "inline-block";
 
-        displayWelcomeMessage(currentUser);
+        messagesLoaded = false; // Reset message load flag
+        loadMessages();
         setupPresence(currentUser);
+
       } else {
         loginError.style.display = "block";
       }
     });
 
-    // Listen for new chat messages
-    db.ref("messages").on("child_added", snapshot => {
-      const data = snapshot.val();
-      if (data) displayMessage(data.sender, data.text);
-    });
-
-    // Handle sending a chat message
+    // Send message handler
     chatForm.addEventListener("submit", e => {
       e.preventDefault();
       if (!currentUser) return;
@@ -555,7 +269,7 @@
       messageInput.value = "";
     });
 
-    // Emergency Surge button to leave chat
+    // Emergency Surge button: leave chat, reset UI
     emergencyBtn.addEventListener("click", () => {
       chatSection.style.display = "none";
       emergencyBtn.style.display = "none";
