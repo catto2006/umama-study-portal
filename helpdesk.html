@@ -6,7 +6,319 @@
   <title>Help Desk Chat - Karachi Board Medical Coaching Center</title>
 
   <style>
-    /* (same styling as before - omitted here for brevity, just copy from previous) */
+    /* Reset & base styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f1ed;
+      color: #2f2f2f;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: #b36b00;
+      color: #fff;
+      text-align: center;
+      font-size: 1.5rem;
+      padding: 15px 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      user-select: none;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+    }
+    main {
+      flex-grow: 1;
+      max-width: 600px;
+      margin: 15px auto;
+      width: 95%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    /* Login section */
+    #login-section {
+      background: #fff8f0;
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    #login-section p {
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #704b00;
+      font-size: 1.1rem;
+    }
+    #access-code {
+      width: 65%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1.5px solid #b36b00;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    #access-code:focus {
+      outline: none;
+      border-color: #ffac33;
+      box-shadow: 0 0 8px #ffac33aa;
+    }
+    #login-btn {
+      margin-left: 12px;
+      padding: 8px 16px;
+      background: #b36b00;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #login-btn:hover {
+      background: #d18e00;
+    }
+    #login-error {
+      margin-top: 10px;
+      color: #cc0000;
+      font-weight: 600;
+      display: none;
+      user-select: none;
+    }
+
+    /* Chat section */
+    #chat-section {
+      display: none;
+      background: #fff;
+      border-radius: 15px;
+      padding: 15px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      flex-direction: column;
+      height: 550px;
+      position: relative;
+    }
+    #emergency-btn {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      padding: 6px 15px;
+      background: #ff3333;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255,0,0,0.6);
+      user-select: none;
+      transition: background 0.3s ease;
+      z-index: 5;
+    }
+    #emergency-btn:hover {
+      background: #cc0000;
+    }
+
+    #online-users {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-weight: 600;
+      color: #b36b00;
+      user-select: none;
+      font-size: 0.95rem;
+      z-index: 5;
+    }
+
+    #messages {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding: 10px 15px;
+      margin-top: 55px;
+      border-radius: 12px;
+      background: #fefefe;
+      box-shadow: inset 0 0 12px #ddd;
+      font-size: 1rem;
+      line-height: 1.3;
+      user-select: text;
+    }
+
+    .message {
+      margin-bottom: 11px;
+      padding: 8px 12px;
+      border-radius: 15px;
+      max-width: 85%;
+      word-wrap: break-word;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
+      position: relative;
+      font-weight: 600;
+    }
+    .sender-Babygurl {
+      background: #ffd6a0;
+      color: #5b3a00;
+      margin-left: auto;
+      border-bottom-right-radius: 3px;
+    }
+    .sender-KuchuPrincess {
+      background: #b0e1ff;
+      color: #004469;
+      margin-left: auto;
+      border-bottom-right-radius: 3px;
+    }
+    .sender-System {
+      background: #eeeeee;
+      color: #444;
+      margin-left: 0;
+      font-weight: 700;
+      font-style: italic;
+    }
+    .timestamp {
+      font-size: 0.7rem;
+      color: #999;
+      position: absolute;
+      bottom: 4px;
+      right: 10px;
+      user-select: none;
+    }
+
+    /* Welcome message style */
+    #welcome-message {
+      background: #ffe4b5;
+      color: #6b4c00;
+      margin: 10px auto 15px;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-style: italic;
+      font-weight: 600;
+      max-width: 90%;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Chat input area */
+    #chat-form {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+    #input-area {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    #message-input {
+      flex-grow: 1;
+      padding: 12px 15px;
+      font-size: 1.05rem;
+      border-radius: 30px;
+      border: 1.8px solid #b36b00;
+      transition: box-shadow 0.3s ease;
+      user-select: text;
+    }
+    #message-input:focus {
+      outline: none;
+      box-shadow: 0 0 8px #ffac33aa;
+      border-color: #ffac33;
+    }
+    #emoji-btn {
+      background: #f0f0f0;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s ease;
+    }
+    #emoji-btn:hover {
+      background: #e0e0e0;
+    }
+    #chat-form button[type="submit"] {
+      background: #b36b00;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    #chat-form button[type="submit"]:hover {
+      background: #d18e00;
+    }
+
+    /* Emoji picker */
+    #emoji-picker {
+      display: none;
+      position: absolute;
+      bottom: 65px;
+      left: 10px;
+      background: #fff;
+      border: 1.5px solid #b36b00;
+      border-radius: 10px;
+      padding: 10px;
+      width: 280px;
+      max-width: 95vw;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      flex-wrap: wrap;
+      gap: 8px;
+      user-select: none;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    #emoji-picker span {
+      cursor: pointer;
+      font-size: 1.3rem;
+      padding: 4px 7px;
+      border-radius: 6px;
+      user-select: none;
+      transition: background 0.2s ease;
+      line-height: 1;
+      text-align: center;
+    }
+    #emoji-picker span:hover, #emoji-picker span:focus {
+      background: #b36b00;
+      color: white;
+      outline: none;
+    }
+
+    /* Lectures section */
+    #lectures-section {
+      background: #fff8f0;
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      font-size: 1.2rem;
+      color: #5a4a00;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      #access-code {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      #login-btn {
+        width: 100%;
+        margin-left: 0;
+      }
+      #chat-section {
+        height: 450px;
+      }
+      #emergency-btn {
+        top: 10px;
+        right: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -16,18 +328,18 @@
 
   <main>
     <!-- Login Section -->
-    <section id="login-section">
+    <section id="login-section" aria-label="Login to chat help desk">
       <p>Enter your access code:</p>
-      <input type="password" id="access-code" placeholder="Access code" autocomplete="off" />
-      <button id="login-btn">Login</button>
-      <div id="login-error">Invalid access code, please try again.</div>
+      <input type="password" id="access-code" placeholder="Access code" autocomplete="off" aria-required="true" aria-describedby="login-error"/>
+      <button id="login-btn" aria-label="Login to chat">Login</button>
+      <div id="login-error" role="alert" aria-live="assertive">Invalid access code, please try again.</div>
     </section>
 
     <!-- Chat Section -->
-    <section id="chat-section" style="display:none; flex-direction: column; height: 500px; position: relative;">
+    <section id="chat-section" aria-label="Chat help desk" style="display:none; flex-direction: column; height: 500px; position: relative;">
       <button id="emergency-btn" title="Exit chat and view lectures">Emergency Surge</button>
-      <div id="online-users">Online Users: 0</div>
-      <div id="messages"></div>
+      <div id="online-users" aria-live="polite">Online Users: 0</div>
+      <div id="messages" tabindex="0" aria-live="polite" aria-relevant="additions"></div>
       <form id="chat-form" autocomplete="off" aria-label="Send a chat message" style="position: relative;">
         <div id="input-area">
           <input
@@ -50,18 +362,19 @@
     </section>
   </main>
 
+  <!-- Firebase libraries -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
   <script>
-    // Firebase config - replace with your details
+    // Firebase config - replace with your actual details if needed
     const firebaseConfig = {
       apiKey: "AIzaSyAjhr9440jqm7xk4TISB9LXlU7UMfJ-aYY",
-  authDomain: "umama-study-portal.firebaseapp.com",
-  projectId: "umama-study-portal",
-  storageBucket: "umama-study-portal.firebasestorage.app",
-  messagingSenderId: "438854993441",
-  appId: "1:438854993441:web:bbe2003382a6bfefbcc560",
+      authDomain: "umama-study-portal.firebaseapp.com",
+      projectId: "umama-study-portal",
+      storageBucket: "umama-study-portal.firebasestorage.app",
+      messagingSenderId: "438854993441",
+      appId: "1:438854993441:web:bbe2003382a6bfefbcc560",
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -82,6 +395,7 @@
     const emojiPicker = document.getElementById("emoji-picker");
     const messageInput = document.getElementById("message-input");
 
+    // Access codes mapping to usernames
     const accessCodes = {
       "ayan123": "Babygurl",
       "umama123": "KuchuPrincess"
@@ -91,7 +405,7 @@
     let userStatusRef = null;
     let messagesLoaded = false;  // Flag to avoid duplicate welcome message
 
-    // Emoji array & populate
+    // Emoji array & populate picker
     const emojis = ["😀","🙀","🐈","😭","🐁","👍","😾","🎉","🔥","💖","🌟","🪈","😡","😴","🤔","🙌"];
     emojis.forEach(e => {
       const span = document.createElement("span");
@@ -116,6 +430,7 @@
       emojiPicker.style.display = emojiPicker.style.display === "flex" ? "none" : "flex";
     });
 
+    // Hide emoji picker when clicking outside
     document.addEventListener("click", e => {
       if (!emojiPicker.contains(e.target) && e.target !== emojiBtn) {
         emojiPicker.style.display = "none";
@@ -127,9 +442,8 @@
       messagesDiv.innerHTML = "";
     }
 
-    // Display welcome message separately, only once on login
+    // Display welcome message (once)
     function displayWelcomeMessage(user) {
-      // Remove previous welcome message if any
       const oldWelcome = document.getElementById("welcome-message");
       if (oldWelcome) oldWelcome.remove();
 
@@ -145,12 +459,13 @@
         font-weight: 600;
         max-width: 90%;
         text-align: center;
+        user-select: none;
       `;
       welcomeEl.textContent = `Welcome ${user}! You have entered the help desk.`;
       messagesDiv.prepend(welcomeEl);
     }
 
-    // Format timestamp nicely
+    // Format timestamp as HH:MM am/pm
     function formatTimestamp(ts) {
       const date = new Date(ts);
       return date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
@@ -175,7 +490,7 @@
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // Setup presence (online users)
+    // Setup presence and online users count
     const onlineUsersRef = db.ref("onlineUsers");
     function setupPresence(uid) {
       if (userStatusRef) userStatusRef.off();
@@ -202,7 +517,7 @@
       onlineUsersDiv.textContent = `Online Users: ${count}`;
     }
 
-    // Load all messages once on login & then listen for new ones live
+    // Load all messages once on login & listen live for new ones
     function loadMessages() {
       clearMessages();
 
@@ -216,16 +531,13 @@
         }
         // Show welcome message after loading old chats
         displayWelcomeMessage(currentUser);
+        messagesLoaded = true; // Now allow listening to new messages
       });
 
       // Listen for new messages after initial load
       db.ref("messages").limitToLast(1).on("child_added", snapshot => {
+        if (!messagesLoaded) return; // Avoid duplicates during initial load
         const msg = snapshot.val();
-        // Avoid duplicating messages already shown on initial load
-        if (!messagesLoaded) {
-          messagesLoaded = true;
-          return; // skip the very first event which will duplicate last message
-        }
         if (msg) {
           displayMessage(msg.sender, msg.text, msg.timestamp);
         }
@@ -243,12 +555,14 @@
         chatSection.style.display = "flex";
         emergencyBtn.style.display = "inline-block";
 
-        messagesLoaded = false; // Reset message load flag
+        messagesLoaded = false; // Reset flag to avoid message duplication
         loadMessages();
         setupPresence(currentUser);
 
+        messageInput.focus();
       } else {
         loginError.style.display = "block";
+        accessCodeInput.focus();
       }
     });
 
@@ -267,9 +581,10 @@
       });
 
       messageInput.value = "";
+      messageInput.focus();
     });
 
-    // Emergency Surge button: leave chat, reset UI
+    // Emergency Surge button: exit chat, reset UI
     emergencyBtn.addEventListener("click", () => {
       chatSection.style.display = "none";
       emergencyBtn.style.display = "none";
@@ -285,6 +600,7 @@
       accessCodeInput.value = "";
       loginError.style.display = "none";
       clearMessages();
+      accessCodeInput.focus();
     });
   </script>
 </body>
