@@ -1,122 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Karachi Board Study Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Karachi Board Coaching Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <img src="karachi_board_logo.png" id="logo" alt="Karachi Board Logo">
+    <img src="karachi_board_logo.png" id="logo" alt="Karachi Board Logo" />
     <h1>Karachi Board Coaching Center</h1>
   </header>
 
   <nav>
-    <button data-tab="home" class="active">Home</button>
-    <button data-tab="notes">Notes</button>
-    <button data-tab="assignments">Assignments</button>
-    <button data-tab="quiz">Quiz</button>
-    <button data-tab="lectures">Lectures</button>
-    <button data-tab="helpdesk">Help Desk</button>
+    <a href="index.html" class="active">Home</a>
+    <a href="notes.html">Notes</a>
+    <a href="assignments.html">Assignments</a>
+    <a href="lectures.html">Lectures</a>
+    <a href="helpdesk.html">Help Desk</a>
   </nav>
 
   <main>
-    <section id="home" class="active">
-      <h2>Welcome to Your Future Study Companion</h2>
-      <p>Here you’ll find:</p>
+    <section class="hero">
+      <h2>Welcome to the Ultimate Study Hub</h2>
+      <p>Empowering Grade 12 Medical Students for Karachi Board Excellence.</p>
+      <a href="helpdesk.html" class="cta-button">Ask the Help Desk</a>
+    </section>
+
+    <section class="features">
       <ul>
-        <li>📘 Curated study notes & PDFs</li>
-        <li>📝 Solved past papers & MCQs</li>
-        <li>🎯 Auto-generating quizzes</li>
-        <li>🎥 Video lectures</li>
-        <li>💬 Live hidden help chat</li>
+        <li>📚 Chapter-wise Notes & Diagrams</li>
+        <li>📄 Assignments + Past Papers</li>
+        <li>🎯 Auto-generating MCQs & Quizzes</li>
+        <li>🎥 High-quality Lectures</li>
+        <li>💬 Real-time Help Desk Support</li>
       </ul>
-      <p>Designed with a futuristic interface & smooth responsive experience—study smarter, excel higher!</p>
-    </section>
-
-    <section id="notes">
-      <h2>📚 Notes & PDFs</h2>
-      <ul>
-        <li><a href="https://www.zahidenotes.com/download/BioPart2.pdf" target="_blank">Biology Chapter-wise</a></li>
-        <li><a href="https://onlinesabaq.com/Bio-Cha15-Homeostasis.pdf" target="_blank">Homeostasis Notes</a></li>
-        <li><a href="https://www.zahidenotes.com/download/ChemPart2.pdf" target="_blank">Chemistry Notes</a></li>
-      </ul>
-    </section>
-
-    <section id="assignments">
-      <h2>📝 Assignments & Past Papers</h2>
-      <ul>
-        <li><a href="https://www.perfect24u.com/BioPart2-MCQs.pdf" target="_blank">Biology MCQs</a></li>
-        <li><a href="https://educationinkarachi.net/pastpapers/chemistry.pdf" target="_blank">Chemistry Past Paper</a></li>
-      </ul>
-    </section>
-
-    <section id="quiz">
-      <h2>🎯 Pop Quiz</h2>
-      <div id="quiz-container"></div>
-      <button id="new-quiz-btn">New Quiz</button>
-      <div id="quiz-result"></div>
-    </section>
-
-    <section id="lectures">
-      <h2>🎥 Video Lectures</h2>
-      <div class="videos">
-        <iframe src="https://www.youtube.com/embed/UoG62E6qKHo" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/n0P6G3n1wOY" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/DGfZPoRJF3U" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/p8kpGzWbF3Q" allowfullscreen></iframe>
-      </div>
-    </section>
-
-    <section id="helpdesk">
-      <!-- helpdesk.js will embed the chat here -->
-      <div id="helpdesk-container"></div>
     </section>
   </main>
-
-  <script src="helpdesk.js"></script>
-  <script>
-    // NAVIGATION
-    document.querySelectorAll('nav button').forEach(btn => {
-      btn.onclick = () => {
-        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('main section').forEach(sec => sec.id === btn.dataset.tab ? sec.classList.add('active') : sec.classList.remove('active'));
-      };
-    });
-
-    // QUIZ LOGIC
-    const quizBank = [
-      {subject:"Biology",question:"Syphilis is caused by ___?",options:["Bacilli","Trichomonas","Neisseria gonorrhea","Treponema pallidum"],answer:"Treponema pallidum"},
-      {subject:"Chemistry",question:"12 moles KClO₃ produce O₂ moles?",options:["12","15","18","21"],answer:"18"},
-      {subject:"Physics",question:"SI unit of current?",options:["Volt","Ohm","Ampere","Watt"],answer:"Ampere"},
-      {subject:"Biology",question:"RNA polymerase works in ___?",options:["DNA replication","Protein synthesis","Transcription","Translation"],answer:"Transcription"},
-      {subject:"Chemistry",question:"Neutral water pH @25°C?",options:["6","7","8","9"],answer:"7"},
-    ];
-    function shuffle(a){return a.sort(()=>0.5-Math.random());}
-    function loadQuiz(){
-      const qz = shuffle(quizBank).slice(0,5);
-      const c = document.getElementById('quiz-container');
-      c.innerHTML = qz.map((q,i)=>`
-        <div class="question">
-          <p><strong>${i+1}. [${q.subject}]</strong> ${q.question}</p>
-          ${q.options.map(o=>`<label><input type="radio" name="q${i}" value="${o}"> ${o}</label>`).join('')}
-        </div>`).join('');
-      document.getElementById('quiz-result').innerText = '';
-    }
-    document.getElementById('new-quiz-btn').onclick = loadQuiz;
-    document.getElementById('quiz').addEventListener('change', () => {
-      let score=0;
-      for(let i=0;i<5;i++){
-        const sel=document.querySelector(`input[name="q${i}"]:checked`);
-        if(sel?.value===shuffle(quizBank)[i].answer) score++;
-      }
-      document.getElementById('quiz-result').innerText = `Score: ${score}/5`;
-    });
-    loadQuiz();
-  </script>
 </body>
 </html>
