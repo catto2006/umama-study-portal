@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Assignments - Umama's Study Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script defer src="assignments.js"></script>
 </head>
 <body>
   <header>
-    <img src="images/karachi-board-logo.png" alt="Karachi Board Logo" class="logo" />
+    <img src="images/karachi_board_logo.png" alt="Karachi Board Logo" class="board-logo" />
     <h1>Karachi Board Medical Coaching Center</h1>
     <nav>
       <a href="index.html">Home</a>
@@ -20,18 +21,22 @@
     </nav>
   </header>
 
-  <main>
-    <h2>Your Assignments</h2>
-    <div id="assignments-list" class="assignments-list">
-      <!-- Assignments will appear here -->
+  <main class="container">
+    <div class="assignments-header">
+      <h2>Your Assignments</h2>
     </div>
 
-    <section class="new-assignment-section">
-      <h3>Create New Assignment</h3>
-      <input type="text" id="assignment-title" placeholder="Assignment Title" />
-      <textarea id="assignment-content" rows="6" placeholder="Write your assignment here..."></textarea>
+    <ul id="assignments-list" class="assignment-list"></ul>
+
+    <div class="assignment-form">
+      <label for="assignment-title">Assignment Title</label>
+      <input type="text" id="assignment-title" placeholder="Enter title..." />
+
+      <label for="assignment-content">Content</label>
+      <textarea id="assignment-content" placeholder="Write your assignment here..."></textarea>
+
       <button id="add-assignment-btn">Add Assignment</button>
-    </section>
+    </div>
   </main>
 
   <footer>
